@@ -69,6 +69,7 @@ const fixture='<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000
      await gallery.locator("img").evaluate(img=>img.decode());
      await page.waitForFunction(()=>document.querySelector("#gallery-info .artwork-viewport").style.getPropertyValue("--aspect")!=="");
      assert.equal(await page.locator("#gallery-info .view-level").innerText(),"Fit view");
+     assert.ok(await gallery.evaluate(v=>v.getBoundingClientRect().width-v.querySelector("img").getBoundingClientRect().width<=26),"Frame should not leave wide margins at "+width);
      assert.ok(await gallery.evaluate(v=>{const i=v.querySelector("img");const a=i.getBoundingClientRect(),b=v.getBoundingClientRect();return a.top>=b.top-1&&a.bottom<=b.bottom+1&&a.left>=b.left-1&&a.right<=b.right+1&&v.scrollHeight<=v.clientHeight+1&&v.scrollWidth<=v.clientWidth+1}),"Whole portrait must fit at "+width);
      await page.locator("#gallery-info").getByRole("button",{name:"Zoom in",exact:true}).click();
      assert.equal(await page.locator("#gallery-info .view-level").innerText(),"125%");
