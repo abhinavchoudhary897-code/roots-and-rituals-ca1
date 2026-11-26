@@ -19,7 +19,9 @@ window.HERITAGE_RECORDS = {
     "awardSource": "https://www.pib.gov.in/newsite/PrintRelease.aspx?lang=2&reg=48&relid=69364",
     "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/239",
     "masterwork": "Untitled (Warli Wedding/Chauk Palghata Mata Temple) — Jivya Soma Mashe; MAP accession PTG.00849.",
-    "masterworkSource": "https://map-india.org/collections/cumulus/living-traditions/PTG.00849/?id=4220"
+    "masterworkSource": "https://map-india.org/collections/cumulus/living-traditions/PTG.00849/?id=4220",
+    "openCollection": "Warli drawing, c. 1980 — Warli people; National Gallery of Victoria, gift of Jim Masselos, 2026. The museum makes this image available for non-commercial use, describes the work as public domain, and requires the full credit and uncropped reproduction.",
+    "openCollectionSource": "https://www.ngv.vic.gov.au/explore/collection/work/155150/"
   },
   "gond": {
     "title": "Footprints and the wind",
@@ -41,7 +43,9 @@ window.HERITAGE_RECORDS = {
     "awardSource": "https://www.pib.gov.in/newsite/PrintRelease.aspx?lang=2&reg=48&relid=175910",
     "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/701",
     "masterwork": "The Unborn Fish — Bhajju Shyam, silkscreen from Creation; documented by MAP. Artwork copyright: Tara Books.",
-    "masterworkSource": "https://map-india.org/why-i-love-art-a-reminder-to-create/"
+    "masterworkSource": "https://map-india.org/why-i-love-art-a-reminder-to-create/",
+    "openCollection": "The world of the Gonds, 2017 — Venkat Raman Singh Shyam; National Gallery of Victoria accession 2019.661. The catalogue explains the cat associated with Shashthi, a protector of children. Copyright belongs to the artist; view the work on the museum website.",
+    "openCollectionSource": "https://www.ngv.vic.gov.au/explore/collection/work/141793/"
   },
   "dhokra": {
     "title": "Figure of Bull — Bastar Dokra",
@@ -84,7 +88,9 @@ window.HERITAGE_RECORDS = {
     "awardSource": "https://www.drishtiias.com/state-pcs-current-affairs/fellowship-to-4-women-from-jharkhand-including-neelam-nirad",
     "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1320",
     "masterwork": "Jadopatia: the Santal scroll, Cambridge MAA accession 2016.215.1; collected in West Bengal.",
-    "masterworkSource": "https://collections.maa.cam.ac.uk/objects/561796/"
+    "masterworkSource": "https://collections.maa.cam.ac.uk/objects/561796/",
+    "openCollection": "Santal Jadupatua scroll, 20th century — National Gallery of Victoria accession 2011.315, gift of John McCarthy, 2011. The museum provides a non-commercial image download and believes the work is public domain; observe its credit and full-image conditions.",
+    "openCollectionSource": "https://www.ngv.vic.gov.au/explore/collection/work/99492/"
   },
   "pithora": {
     "title": "Pithoro — Mansingh Rathwa, 2016",
