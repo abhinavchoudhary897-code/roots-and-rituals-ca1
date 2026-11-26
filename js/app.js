@@ -9,7 +9,7 @@ function add(el,...nodes){el.append(...nodes);return el}
 // External artwork references: show the source and file licence even when the image fails.
 const media=window.EXHIBIT_MEDIA||{};
 const imageFailures=new Set();
-function artwork(item,priority=false){
+function artwork(item,priority=false,compact=false){
  const m=media[item.id];if(!m)return make("p","No reference photograph available.","note");
  const fig=make("figure",undefined,"exhibit-media"),img=make("img",undefined,"media-image");
  img.alt=m.alt;
@@ -21,17 +21,17 @@ function artwork(item,priority=false){
  function loadNext(){if(next<candidates.length)img.src=candidates[next++];else fallback()}
  img.addEventListener("error",()=>{if(img.getAttribute("src"))imageFailures.add(img.getAttribute("src"));loadNext()});
  img.addEventListener("load",()=>fig.dispatchEvent(new Event("reference-ready")));
- const cap=add(make("figcaption",undefined,"media-credit"),document.createTextNode(m.alt+" — "),link(m.credit,m.source),document.createTextNode(" · "),link(m.license,m.licenseURL),document.createTextNode(" · uncropped reference. "+m.note));
+ const cap=add(make("figcaption",undefined,"media-credit"),document.createTextNode(compact?"Photo: ":m.alt+" — "),link(m.credit,m.source),document.createTextNode(" · "),link(m.license,m.licenseURL),document.createTextNode(compact?"":" · Uncropped reference. "+m.note));
  fig.append(img,cap);queueMicrotask(loadNext);return fig
 }
 // Keep the lightweight homepage illustration stable. Real photographs load in the collection.
 
 const menu=$("menu");menu.addEventListener("click",()=>{const open=$("navigation").classList.toggle("open");menu.setAttribute("aria-expanded",String(open))});$("navigation").addEventListener("click",e=>{if(e.target.closest("a")){$("navigation").classList.remove("open");menu.setAttribute("aria-expanded","false")}});
 // Artwork inspection: original file resolution is requested explicitly; zoom never implies extra image detail.
-function artworkViewer(item){
+function artworkViewer(item,priority=true){
  const m=media[item.id];if(!m)return make("p","No reference image available.");
  const panel=make("section",undefined,"artwork-viewer"),heading=make("h3","Artwork inspection");
- const viewport=make("div",undefined,"artwork-viewport"),fig=artwork(item,true),status=make("p","Loading reference image…","status");
+ const viewport=make("div",undefined,"artwork-viewport"),fig=artwork(item,priority),status=make("p","Loading reference image…","status");
  status.setAttribute("role","status");const img=fig.querySelector("img");
  const controls=make("div",undefined,"actions"),level=make("span","100%");level.setAttribute("aria-live","polite");
  let scale=1,room=false,originalRequested=false;
@@ -85,9 +85,9 @@ function storyPlayer(record){
  audio.addEventListener("pause",()=>{if(currentAudio===audio&&!audio.ended)status.textContent="Narration paused."});
  audio.addEventListener("ended",()=>{if(currentAudio===audio)currentAudio=null;status.textContent="Narration finished."});
  audio.addEventListener("error",()=>{if(currentAudio===audio)currentAudio=null;status.textContent="Audio unavailable. Try browser read-aloud below or read the transcript."});
- const transcript=make("details");transcript.open=true;transcript.append(make("summary","Transcript and spiritual context"),make("p",record.story),make("h4","Cultural symbolism"),make("p",record.symbolism),link("Narrative source",record.storySource));if(record.symbolSource)transcript.append(add(make("p"),link("Symbolism reference",record.symbolSource)));
+ const transcript=make("details");transcript.open=false;transcript.append(make("summary","Transcript and spiritual context"),make("p",record.story),make("h4","Cultural symbolism"),make("p",record.symbolism),link("Narrative source",record.storySource));if(record.symbolSource)transcript.append(add(make("p"),link("Symbolism reference",record.symbolSource)));
  const alternate=make("details");alternate.append(make("summary","Browser read-aloud alternative"),button("Read aloud",speakFallback));
- box.append(make("p",record.storyType,"eyebrow"),make("h3",record.storyTitle),make("p","Synthetic educational narration; not an archival or community recording.","note"),audio,add(make("div",undefined,"actions"),play,pause,stop,rate),status,alternate,transcript);
+ box.append(make("p",record.storyType,"eyebrow"),make("h3",record.storyTitle),make("p","Listen to the story. A synthetic voice reads the educational summary.","note"),audio,add(make("div",undefined,"actions"),play,stop,add(make("label", "Speed "),rate)),status,alternate,transcript);
  return box
 }
 function provenanceCard(record){
@@ -100,20 +100,37 @@ function profileCard(record){
 }
 
 let lastFocus=null;
-function openDetail(item){stopNarration();lastFocus=document.activeElement;const title=make("h2",item.name);title.id="detail-title";$("detail-content").replaceChildren(make("p",item.region,"eyebrow"),title,artworkViewer(item),make("p",item.material),make("p",item.detail),provenanceCard(heritage[item.id]),storyPlayer(heritage[item.id]),make("h3","Artisan heritage"),profileCard(heritage[item.id]),link(item.sourceName,item.source));$("detail").showModal();$("close-detail").focus()}
+function openDetail(item,focusStory=false){
+ stopNarration();
+ lastFocus=document.activeElement;
+ const record=heritage[item.id];
+ const title=make("h2",item.name);title.id="detail-title";
+ const story=storyPlayer(record);story.id="detail-story";
+ const artist=profileCard(record);artist.id="detail-artist";
+ const documentation=provenanceCard(record);documentation.id="detail-references";
+ const references=make("details",undefined,"exhibit-references");
+ references.append(make("summary","Artwork record and references"),documentation,link(item.sourceName,item.source));
+ const jump=(label,target)=>button(label,()=>target.scrollIntoView({block:"start"}));
+ const shortcuts=add(make("div",undefined,"actions detail-shortcuts"),jump("Listen to story",story),jump("Meet the artisan",artist),jump("References",references));
+ $("detail-content").replaceChildren(make("p",item.region,"eyebrow"),title,make("p",item.detail),shortcuts,artworkViewer(item),story,make("h3","Related artisan"),artist,references);
+ $("detail").showModal();
+ if(focusStory){story.scrollIntoView({block:"start"});story.querySelector("button")?.focus({preventScroll:true})}
+ else $("close-detail").focus();
+}
 $("close-detail").addEventListener("click",()=>$("detail").close());$("detail").addEventListener("close",()=>{stopNarration();lastFocus?.focus()});$("detail").addEventListener("click",e=>{if(e.target===$("detail"))$("detail").close()});
-function renderCollection(){const query=$("search").value.trim().toLowerCase(),type=$("filter").value,category=$("category-filter").value;const items=exhibits.filter(x=>(type==="all"||type===x.type)&&(category==="all"||category===x.category)&&[x.category,x.name,x.region,x.artisan,x.material,x.place,heritage[x.id].artisan,heritage[x.id].title].join(" ").toLowerCase().includes(query));$("exhibits").replaceChildren(...items.map(x=>{const card=make("article",undefined,"card");return add(card,artwork(x),make("p",x.category+" · "+x.region,"eyebrow"),make("h3",x.name),make("p",x.summary),button("Explore tradition",()=>openDetail(x)))}));$("results").textContent=items.length+" tradition"+(items.length===1?"":"s")+" found.";if(!items.length)$("exhibits").append(make("p","No matching exhibits. Try another search or filter."))}
-$("search").addEventListener("input",renderCollection);$("filter").addEventListener("change",renderCollection);$("category-filter").addEventListener("change",renderCollection);renderCollection();
+function renderCollection(){const query=$("search").value.trim().toLowerCase(),category=$("category-filter").value;const items=exhibits.filter(x=>(category==="all"||category===x.category)&&[x.category,x.name,x.region,x.artisan,x.material,x.place,heritage[x.id].artisan,heritage[x.id].title].join(" ").toLowerCase().includes(query));$("exhibits").replaceChildren(...items.map(x=>{const card=make("article",undefined,"card");return add(card,artwork(x,false,true),make("p",x.region,"eyebrow"),make("h3",x.name),make("p",x.summary),button("Explore artwork",()=>openDetail(x)))}));$("results").textContent=items.length+" tradition"+(items.length===1?"":"s")+" found.";if(!items.length)$("exhibits").append(make("p","No matching exhibits. Try another search or filter."))}
+$("search").addEventListener("input",renderCollection);$("category-filter").addEventListener("change",renderCollection);renderCollection();
 // Browse the virtual exhibition with ordinary HTML and JavaScript.
 let current=0;
 function showGallery(){
  const x=exhibits[current];
- $("gallery-info").replaceChildren(make("p",(current+1)+" of "+exhibits.length),make("h3",x.name),artwork(x),make("p",x.region+" · "+x.material),make("p",x.summary),button("Read exhibit details",()=>openDetail(x)));
+ $("gallery-info").replaceChildren(make("p",(current+1)+" of "+exhibits.length),make("h3",x.name),make("p",x.region+" · "+x.material),artworkViewer(x,false),button("Story and artisan",()=>openDetail(x,true)));
 }
 function navigate(delta){current=(current+delta+exhibits.length)%exhibits.length;showGallery()}
 $("prev-exhibit").addEventListener("click",()=>navigate(-1));
 $("next-exhibit").addEventListener("click",()=>navigate(1));
 showGallery();
+for(const x of exhibits){const li=make("li");li.append(add(make("div"),make("strong",heritage[x.id].storyTitle),make("p",x.category,"note")),button("Listen",()=>openDetail(x,true)));$("story-list").append(li)}
 for(const x of exhibits)$("artisan-list").append(profileCard(heritage[x.id]));
 // Fair trade: values always have a textual equivalent and CSS fallback.
 const priceIds=["materials","labour","logistics","overhead"],labels=["Materials","Artisan labour","Packaging & logistics","Retail & overhead"],colors=["#a34d34","#435a44","#e8d9c5","#594132"],defaults=[250,500,100,150];const moneyFormat=new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:0});const money=n=>moneyFormat.format(n);
