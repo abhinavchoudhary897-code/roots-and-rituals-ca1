@@ -51,6 +51,14 @@ jobs:
             npx lighthouse http://127.0.0.1:8081/ $preset --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=/tmp/roots-lighthouse-$mode.json --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --quiet --max-wait-for-load=30000
             node -e 'const r=require(process.argv[1]); for(const [k,v] of Object.entries(r.categories))console.log(k+": "+Math.round(v.score*100)+"/100"); console.log("CLS: "+r.audits["cumulative-layout-shift"].numericValue); for(const [k,v] of Object.entries(r.audits))if(v.score!==null&&v.score<0.9&&v.scoreDisplayMode!=="informative")console.log(k+": "+(v.displayValue||v.title));' "/tmp/roots-lighthouse-$mode.json"
           done
+      - name: Validate museum image files
+        run: |
+          node -e 'global.window={}; require("./data/media.js"); for(const x of Object.values(window.EXHIBIT_MEDIA)) if(x.institution) console.log(x.preview)' > /tmp/museum-urls.txt
+          while IFS= read -r url; do
+            curl --fail --location --retry 2 --max-time 30 --silent --show-error "$url" -o /tmp/museum-image
+            file --mime-type /tmp/museum-image | grep -q "image/"
+            echo "Museum image reachable: $url"
+          done < /tmp/museum-urls.txt
       - name: Stage static site
         run: |
           mkdir -p _site
