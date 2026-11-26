@@ -35,6 +35,17 @@ jobs:
           trap 'kill $server' EXIT
           sleep 2
           node scripts/browser-check.cjs
+      - name: Lighthouse mobile quality audit
+        continue-on-error: true
+        run: |
+          npm install --no-save --no-package-lock playwright lighthouse
+          export CHROME_PATH="$(node -e 'console.log(require("playwright").chromium.executablePath())')"
+          python3 -m http.server 8081 > /tmp/roots-audit-server.log 2>&1 &
+          server=$!
+          trap 'kill $server' EXIT
+          sleep 2
+          npx lighthouse http://127.0.0.1:8081/ --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=/tmp/roots-lighthouse.json --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --quiet --max-wait-for-load=30000
+          node -e 'const r=require("/tmp/roots-lighthouse.json"); for(const [k,v] of Object.entries(r.categories))console.log(k+": "+Math.round(v.score*100)+"/100"); for(const [k,v] of Object.entries(r.audits))if(v.score!==null&&v.score<0.9&&v.scoreDisplayMode!=="informative")console.log(k+": "+(v.displayValue||v.title));'
       - name: Stage static site
         run: |
           mkdir -p _site
