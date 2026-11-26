@@ -17,7 +17,7 @@ function artwork(item,priority=false,compact=false){
  img.width=500;img.height=500;
  if(!priority)img.fetchPriority="low";
  const candidates=[m.local,m.preview].filter((u,i,a)=>u&&a.indexOf(u)===i&&!imageFailures.has(u));let next=0;
- function fallback(){const box=make("div",undefined,"media-fallback");box.append(make("span","Image unavailable","eyebrow"),make("strong",item.name),link("View the original reference photograph",m.source));img.replaceWith(box);fig.dispatchEvent(new Event("reference-unavailable"))}
+ function fallback(){if(!img.isConnected)return;const box=make("div",undefined,"media-fallback");box.append(make("span","Image unavailable","eyebrow"),make("strong",item.name),link("View the original reference photograph",m.source));img.replaceWith(box);fig.dispatchEvent(new Event("reference-unavailable"))}
  function loadNext(){if(next<candidates.length)img.src=candidates[next++];else fallback()}
  img.addEventListener("error",()=>{if(img.getAttribute("src"))imageFailures.add(img.getAttribute("src"));loadNext()});
  img.addEventListener("load",()=>fig.dispatchEvent(new Event("reference-ready")));
@@ -110,7 +110,7 @@ function openDetail(item,focusStory=false){
  const shortcuts=add(make("div",undefined,"actions detail-shortcuts"),jump("Listen to story",story),jump("Meet the artisan",artist),jump("References",references));
  $("detail-content").replaceChildren(make("p",item.region,"eyebrow"),title,make("p",item.detail),shortcuts,artworkViewer(item),story,make("h3","Related artisan"),artist,references);
  $("detail").showModal();
- if(focusStory){story.scrollIntoView({block:"start"});story.querySelector("button")?.focus({preventScroll:true})}
+ if(focusStory){story.querySelector("button")?.focus({preventScroll:true});story.scrollIntoView({block:"start"})}
  else $("close-detail").focus();
 }
 $("close-detail").addEventListener("click",()=>$("detail").close());$("detail").addEventListener("close",()=>{stopNarration();lastFocus?.focus()});$("detail").addEventListener("click",e=>{if(e.target===$("detail"))$("detail").close()});
@@ -120,7 +120,8 @@ $("search").addEventListener("input",renderCollection);$("category-filter").addE
 let current=0;
 function showGallery(){
  const x=exhibits[current];
- $("gallery-info").replaceChildren(make("p",(current+1)+" of "+exhibits.length),make("h3",x.name),make("p",x.region+" · "+x.material),artworkViewer(x,false),button("Story and artisan",()=>openDetail(x,true)));
+ $("gallery-position").textContent="Artwork "+(current+1)+" of "+exhibits.length;
+ $("gallery-info").replaceChildren(make("h3",x.name),make("p",x.region+" · "+x.material),artworkViewer(x,false),button("Story and artisan",()=>openDetail(x,true)));
 }
 function navigate(delta){current=(current+delta+exhibits.length)%exhibits.length;showGallery()}
 $("prev-exhibit").addEventListener("click",()=>navigate(-1));
