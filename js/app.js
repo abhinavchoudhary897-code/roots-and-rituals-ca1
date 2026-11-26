@@ -12,8 +12,11 @@ const imageFailures=new Set();
 function artwork(item,priority=false){
  const m=media[item.id];if(!m)return make("p","No reference photograph available.","note");
  const fig=make("figure",undefined,"exhibit-media"),img=make("img",undefined,"media-image");
- img.alt=m.alt;img.loading=priority?"eager":"lazy";img.decoding="async";
- const candidates=[m.local,m.preview,m.original].filter((u,i,a)=>u&&a.indexOf(u)===i&&!imageFailures.has(u));let next=0;
+ img.alt=m.alt;
+ img.loading=priority?"eager":"lazy";img.decoding="async";
+ img.width=500;img.height=500;
+ if(!priority)img.fetchPriority="low";
+ const candidates=[m.local,m.preview].filter((u,i,a)=>u&&a.indexOf(u)===i&&!imageFailures.has(u));let next=0;
  function fallback(){const box=make("div",undefined,"media-fallback");box.append(make("span","Image unavailable","eyebrow"),make("strong",item.name),link("View the original reference photograph",m.source));img.replaceWith(box);fig.dispatchEvent(new Event("reference-unavailable"))}
  function loadNext(){if(next<candidates.length)img.src=candidates[next++];else fallback()}
  img.addEventListener("error",()=>{if(img.getAttribute("src"))imageFailures.add(img.getAttribute("src"));loadNext()});
@@ -21,8 +24,7 @@ function artwork(item,priority=false){
  const cap=add(make("figcaption",undefined,"media-credit"),document.createTextNode(m.alt+" — "),link(m.credit,m.source),document.createTextNode(" · "),link(m.license,m.licenseURL),document.createTextNode(" · uncropped reference. "+m.note));
  fig.append(img,cap);queueMicrotask(loadNext);return fig
 }
-const heroArt=$("hero-illustration");
-if(heroArt&&media.warli){const hero=artwork(exhibits.find(x=>x.id==="warli"),true);hero.addEventListener("reference-ready",()=>{if(heroArt.isConnected)heroArt.replaceWith(hero)},{once:true});}
+// Keep the lightweight homepage illustration stable. Real photographs load in the collection.
 
 const menu=$("menu");menu.addEventListener("click",()=>{const open=$("navigation").classList.toggle("open");menu.setAttribute("aria-expanded",String(open))});$("navigation").addEventListener("click",e=>{if(e.target.closest("a")){$("navigation").classList.remove("open");menu.setAttribute("aria-expanded","false")}});
 // Artwork inspection: original file resolution is requested explicitly; zoom never implies extra image detail.
@@ -55,7 +57,7 @@ function storyPlayer(record){
  const box=make("article",undefined,"story-player"),status=make("p","Listen to the narration or read the transcript.","status");
  status.setAttribute("role","status");
  const key=Object.keys(heritage).find(k=>heritage[k]===record);
- const audio=make("audio");audio.controls=true;audio.setAttribute("controls","");audio.preload="metadata";audio.src="assets/audio/"+key+".mp3";audio.setAttribute("aria-label","Educational narration: "+record.storyTitle);
+ const audio=make("audio");audio.controls=true;audio.setAttribute("controls","");audio.preload="none";audio.src="assets/audio/"+key+".mp3";audio.setAttribute("aria-label","Educational narration: "+record.storyTitle);
  const rate=make("select");rate.setAttribute("aria-label","Narration speed");
  for(const speed of [.8,1,1.2]){const opt=make("option",speed+"×");opt.value=String(speed);if(speed===1)opt.selected=true;rate.append(opt)}
  rate.addEventListener("change",()=>{audio.playbackRate=Number(rate.value)});
@@ -114,7 +116,7 @@ $("next-exhibit").addEventListener("click",()=>navigate(1));
 showGallery();
 for(const x of exhibits)$("artisan-list").append(profileCard(heritage[x.id]));
 // Fair trade: values always have a textual equivalent and CSS fallback.
-const priceIds=["materials","labour","logistics","overhead"],labels=["Materials","Artisan labour","Packaging & logistics","Retail & overhead"],colors=["#a34d34","#435a44","#e8d9c5","#594132"],defaults=[250,500,100,150];const money=n=>new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:0}).format(n);
+const priceIds=["materials","labour","logistics","overhead"],labels=["Materials","Artisan labour","Packaging & logistics","Retail & overhead"],colors=["#a34d34","#435a44","#e8d9c5","#594132"],defaults=[250,500,100,150];const moneyFormat=new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:0});const money=n=>moneyFormat.format(n);
 function prices(){return priceIds.map(id=>{const n=Number($(id).value);return Number.isFinite(n)?Math.min(100000,Math.max(0,Math.round(n))):0})}
 function renderPrice(){const values=prices(),total=values.reduce((a,b)=>a+b,0);$("total").textContent=money(total);$("price-warning").textContent=total===0?"Enter a positive cost to see a breakdown.":priceIds.some((id,i)=>Number($(id).value)!==values[i])?"Values are rounded and limited to ₹0–₹100,000 per component.":"";$("price-bar").replaceChildren(...values.map((n,i)=>{const s=make("span");s.style.background=colors[i];s.style.width=(total?n/total*100:0)+"%";return s}));$("legend").replaceChildren(...values.map((n,i)=>{const sw=make("i");sw.style.background=colors[i];sw.setAttribute("aria-hidden","true");return add(make("div"),add(make("span"),sw,document.createTextNode(labels[i])),make("strong",money(n)+" · "+(total?(n/total*100).toFixed(1):"0.0")+"%"))}));}
 for(const id of priceIds){$(id).addEventListener("input",renderPrice);$(id).addEventListener("change",()=>{$(id).value=prices()[priceIds.indexOf(id)];renderPrice()})}$("reset-price").addEventListener("click",()=>{priceIds.forEach((id,i)=>$(id).value=defaults[i]);renderPrice()});renderPrice();
