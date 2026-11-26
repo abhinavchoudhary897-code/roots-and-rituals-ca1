@@ -22,6 +22,24 @@ const fixture='<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000
  await check("fair-trade calculation and reset",async()=>{await page.locator("#labour").fill("750");assert.match(await page.locator("#total").innerText(),/1,250/);await page.locator("#reset-price").click();assert.match(await page.locator("#total").innerText(),/1,000/);for(const id of ["materials","labour","logistics","overhead"])await page.locator("#"+id).fill("0");assert.match(await page.locator("#total").innerText(),/₹0/);await page.locator("#reset-price").click()});
  await check("prepared audio files are present",async()=>{for(const key of ["warli","gond","dhokra","sohrai","pithora"]){const res=await page.request.get(new URL("assets/audio/"+key+".mp3",base).href);assert.equal(res.status(),200);assert.ok((await res.body()).length>1000)}});
  await check("responsive layout and mobile navigation",async()=>{for(const width of [320,390,768,1024,1440]){await page.setViewportSize({width,height:900});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),"Horizontal overflow at "+width)}await page.setViewportSize({width:390,height:844});await page.locator("#menu").click();assert.equal(await page.locator("#menu").getAttribute("aria-expanded"),"true");await page.locator("#navigation a").first().click();assert.equal(await page.locator("#menu").getAttribute("aria-expanded"),"false")});
+ await check("direct story entry and audio playback",async()=>{
+   assert.equal(await page.locator("#story-list li").count(),5);
+   await page.locator("#story-list button").first().click();
+   const d=page.locator("#detail");await d.waitFor({state:"visible"});
+   assert.equal(await d.locator("audio").getAttribute("preload"),"none");
+   await d.getByRole("button",{name:"Play narration",exact:true}).click();
+   await page.waitForFunction(()=>document.querySelector("#detail audio")?.currentTime>0.1,{},{timeout:12000});
+   await d.getByRole("button",{name:"Stop",exact:true}).click();
+   await d.getByRole("button",{name:"References",exact:true}).click();
+   assert.ok(await d.locator(".exhibit-references").evaluate(el=>el.open));
+   await page.locator("#close-detail").click();
+ });
+ await check("inline gallery room preview",async()=>{
+   const gallery=page.locator("#gallery-info");
+   await gallery.getByRole("button",{name:"Room preview",exact:true}).click();
+   assert.equal(await gallery.locator(".room-mode").count(),1);
+   await gallery.getByRole("button",{name:"Exit room preview",exact:true}).click();
+ });
  await check("no uncaught page errors with network blocked",async()=>assert.deepEqual(errors,[]));
  console.log(JSON.stringify({environment:"Chromium; third-party requests blocked; synthetic test image fixture",report},null,2));
  await browser.close();if(report.some(r=>r.status==="fail"))process.exitCode=1;
