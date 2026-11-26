@@ -1,0 +1,56 @@
+name: Build and validate exhibition
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: roots-and-rituals-ca1-pages
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare synthetic audio
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y espeak ffmpeg
+          node scripts/build-narration.cjs
+      - name: Check JavaScript
+        run: |
+          for file in data/*.js js/*.js scripts/*.cjs; do node --check "$file"; done
+      - name: Browser acceptance tests
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+          python3 -m http.server 8080 > /tmp/roots-server.log 2>&1 &
+          server=$!
+          trap 'kill $server' EXIT
+          sleep 2
+          node scripts/browser-check.cjs
+      - name: Stage static site
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          cp -r css js data assets _site/
+          touch _site/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: verify
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v4
