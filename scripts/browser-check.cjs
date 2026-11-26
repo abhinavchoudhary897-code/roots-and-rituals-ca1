@@ -35,6 +35,20 @@ const fixture='<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000
    }
    await page.locator("#category-filter").selectOption("all");
  });
+ await check("Pithora links to its accessioned artwork without embedding uncleared images",async()=>{
+   await page.locator("#category-filter").selectOption({label:"Pithora"});
+   const card=page.locator("#exhibits .card").first();
+   assert.equal(await card.locator("img").count(),0);
+   assert.equal(await card.getByRole("link",{name:"View artwork at the museum"}).getAttribute("href"),"https://collections.maa.cam.ac.uk/objects/561793/");
+   await card.getByRole("button",{name:"Explore artwork"}).click();
+   const d=page.locator("#detail");
+   assert.equal(await d.locator(".artwork-viewer img").count(),0);
+   assert.equal(await d.getByRole("link",{name:"View artwork at the museum"}).count(),1);
+   await d.getByRole("button",{name:"References",exact:true}).click();
+   assert.match(await d.locator(".record-card").innerText(),/2016\.212/);
+   await page.locator("#close-detail").click();await d.waitFor({state:"hidden"});
+   await page.locator("#category-filter").selectOption("all");
+ });
  await check("zoom, original request, room preview, reset (fixture)",async()=>{await page.locator("#exhibits .card .card-actions button:first-child").first().click();const d=page.locator("#detail");await d.locator(".artwork-viewport img").waitFor();await d.getByRole("button",{name:"Zoom in",exact:true}).click();assert.match(await d.locator(".artwork-viewer .actions").innerText(),/125%/);await d.getByRole("button",{name:"Fit view",exact:true}).click();assert.equal(await d.locator(".view-level").innerText(),"Fit view");await d.getByRole("button",{name:"Room preview",exact:true}).click();assert.equal(await d.locator(".room-mode").count(),1);await d.getByRole("button",{name:"Exit room preview"}).click();await d.getByRole("button",{name:"Load original image"}).click();await page.keyboard.press("Escape");await d.waitFor({state:"hidden"})});
  await check("gallery next / previous",async()=>{const a=await page.locator("#gallery-info > h3").innerText();await page.locator("#next-exhibit").click();assert.notEqual(await page.locator("#gallery-info > h3").innerText(),a);await page.locator("#prev-exhibit").click();assert.equal(await page.locator("#gallery-info > h3").innerText(),a)});
  await check("fair-trade calculation and reset",async()=>{await page.locator("#labour").fill("750");assert.match(await page.locator("#total").innerText(),/1,250/);await page.locator("#reset-price").click();assert.match(await page.locator("#total").innerText(),/1,000/);for(const id of ["materials","labour","logistics","overhead"])await page.locator("#"+id).fill("0");assert.match(await page.locator("#total").innerText(),/₹0/);await page.locator("#reset-price").click()});
