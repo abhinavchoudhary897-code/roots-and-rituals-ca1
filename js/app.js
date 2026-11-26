@@ -1,0 +1,122 @@
+"use strict";
+const $=id=>document.getElementById(id);
+const exhibits=window.EXHIBITS;
+const milestones=window.MILESTONES;
+const make=(tag,txt,cls)=>{const n=document.createElement(tag);if(txt!==undefined)n.textContent=txt;if(cls)n.className=cls;return n};
+function link(txt,url){const a=make("a",txt);a.href=url;return a}
+function button(txt,handler,cls="secondary"){const b=make("button",txt,cls);b.type="button";b.addEventListener("click",handler);return b}
+function add(el,...nodes){el.append(...nodes);return el}
+// External artwork references: show the source and file licence even when the image fails.
+const media=window.EXHIBIT_MEDIA||{};
+const imageFailures=new Set();
+function artwork(item,priority=false){
+ const m=media[item.id];if(!m)return make("p","No reference photograph available.","note");
+ const fig=make("figure",undefined,"exhibit-media"),img=make("img",undefined,"media-image");
+ img.alt=m.alt;img.loading=priority?"eager":"lazy";img.decoding="async";
+ const candidates=[m.local,m.preview,m.original].filter((u,i,a)=>u&&a.indexOf(u)===i&&!imageFailures.has(u));let next=0;
+ function fallback(){const box=make("div",undefined,"media-fallback");box.append(make("span","Image unavailable","eyebrow"),make("strong",item.name),link("View the original reference photograph",m.source));img.replaceWith(box);fig.dispatchEvent(new Event("reference-unavailable"))}
+ function loadNext(){if(next<candidates.length)img.src=candidates[next++];else fallback()}
+ img.addEventListener("error",()=>{if(img.getAttribute("src"))imageFailures.add(img.getAttribute("src"));loadNext()});
+ img.addEventListener("load",()=>fig.dispatchEvent(new Event("reference-ready")));
+ const cap=add(make("figcaption",undefined,"media-credit"),document.createTextNode(m.alt+" — "),link(m.credit,m.source),document.createTextNode(" · "),link(m.license,m.licenseURL),document.createTextNode(" · uncropped reference. "+m.note));
+ fig.append(img,cap);queueMicrotask(loadNext);return fig
+}
+const heroArt=$("hero-illustration");
+if(heroArt&&media.warli){const hero=artwork(exhibits.find(x=>x.id==="warli"),true);hero.addEventListener("reference-ready",()=>{if(heroArt.isConnected)heroArt.replaceWith(hero)},{once:true});}
+
+const menu=$("menu");menu.addEventListener("click",()=>{const open=$("navigation").classList.toggle("open");menu.setAttribute("aria-expanded",String(open))});$("navigation").addEventListener("click",e=>{if(e.target.closest("a")){$("navigation").classList.remove("open");menu.setAttribute("aria-expanded","false")}});
+// Artwork inspection: original file resolution is requested explicitly; zoom never implies extra image detail.
+function artworkViewer(item){
+ const m=media[item.id];if(!m)return make("p","No reference image available.");
+ const panel=make("section",undefined,"artwork-viewer"),heading=make("h3","Artwork inspection");
+ const viewport=make("div",undefined,"artwork-viewport"),fig=artwork(item,true),status=make("p","Loading reference image…","status");
+ status.setAttribute("role","status");const img=fig.querySelector("img");
+ const controls=make("div",undefined,"actions"),level=make("span","100%");level.setAttribute("aria-live","polite");
+ let scale=1,room=false,originalRequested=false;
+ const sync=()=>{level.textContent=Math.round(scale*100)+"%";if(img)img.style.width=room?"100%":(scale*100)+"%";viewport.classList.toggle("room-mode",room);zoomOut.disabled=room||scale<=1;zoomIn.disabled=room||scale>=4;reset.disabled=room;};
+ const zoomIn=button("Zoom in",()=>{scale=Math.min(4,scale+.5);sync()});
+ const zoomOut=button("Zoom out",()=>{scale=Math.max(1,scale-.5);sync()});
+ const reset=button("Reset zoom",()=>{scale=1;viewport.scrollLeft=0;viewport.scrollTop=0;sync()});
+ const original=button("Load original image",()=>{if(!img?.isConnected)return;originalRequested=true;original.disabled=true;status.textContent="Loading the source file at its available resolution…";img.src=m.original});
+ const roomBtn=button("Room preview",()=>{room=!room;roomBtn.setAttribute("aria-pressed",String(room));roomBtn.textContent=room?"Exit room preview":"Room preview";scale=1;viewport.scrollLeft=0;viewport.scrollTop=0;sync();});roomBtn.setAttribute("aria-pressed","false");
+ if(img){img.addEventListener("load",()=>{status.textContent=(originalRequested&&img.getAttribute("src")===m.original?"Original source image: ":"Reference image: ")+img.naturalWidth+" × "+img.naturalHeight+" pixels. Digital zoom does not increase image resolution.";});}
+ fig.addEventListener("reference-unavailable",()=>{status.textContent="Image unavailable. Open the source record to inspect the artwork.";original.disabled=true;zoomIn.disabled=true;zoomOut.disabled=true;reset.disabled=true;roomBtn.disabled=true;});
+ controls.append(zoomOut,level,zoomIn,reset,original,roomBtn);viewport.append(fig);panel.append(heading,controls,viewport,status,make("p","Room preview is an illustrative exhibition wall, not a measured representation of the artwork.", "note"),link("Open original source record",m.source));sync();return panel
+}
+
+// Cultural record cards distinguish archive provenance from artwork certification.
+const heritage=window.HERITAGE_RECORDS;
+let currentNarration=null,narrationToken=0,currentAudio=null;
+function stopNarration(message="Narration stopped."){
+ narrationToken++;window.speechSynthesis?.cancel();if(currentAudio){currentAudio.pause();currentAudio=null;}
+ if(currentNarration){currentNarration.status.textContent=message;currentNarration=null}
+}
+function storyPlayer(record){
+ const box=make("article",undefined,"story-player"),status=make("p","Listen to the narration or read the transcript.","status");
+ status.setAttribute("role","status");
+ const key=Object.keys(heritage).find(k=>heritage[k]===record);
+ const audio=make("audio");audio.controls=true;audio.setAttribute("controls","");audio.preload="metadata";audio.src="assets/audio/"+key+".mp3";audio.setAttribute("aria-label","Educational narration: "+record.storyTitle);
+ const rate=make("select");rate.setAttribute("aria-label","Narration speed");
+ for(const speed of [.8,1,1.2]){const opt=make("option",speed+"×");opt.value=String(speed);if(speed===1)opt.selected=true;rate.append(opt)}
+ rate.addEventListener("change",()=>{audio.playbackRate=Number(rate.value)});
+ function speakFallback(){
+  stopNarration();
+  if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){status.textContent="Read-aloud is unavailable. The transcript remains available.";return}
+  const token=++narrationToken,utterance=new SpeechSynthesisUtterance(record.story+" "+record.symbolism);
+  utterance.lang="en-IN";utterance.rate=Number(rate.value);currentNarration={status,utterance};
+  status.textContent="Starting browser read-aloud…";
+  utterance.onstart=()=>{if(token===narrationToken)status.textContent="Playing browser read-aloud."};
+  utterance.onend=()=>{if(token===narrationToken){status.textContent="Narration finished.";currentNarration=null}};
+  utterance.onerror=()=>{if(token===narrationToken){status.textContent="Browser read-aloud is unavailable. Use the transcript.";currentNarration=null}};
+  window.speechSynthesis.speak(utterance)
+ }
+ const play=button("Play narration",async()=>{
+  stopNarration();const token=++narrationToken;currentAudio=audio;audio.playbackRate=Number(rate.value);status.textContent="Loading narration…";
+  try{await audio.play();if(token===narrationToken)status.textContent="Playing narration."}catch(e){if(token===narrationToken){currentAudio=null;status.textContent="Audio unavailable. Try browser read-aloud below or read the transcript."}}
+ });
+ const pause=button("Pause / resume",async()=>{
+  if(currentAudio===audio){if(audio.paused){try{await audio.play()}catch(e){status.textContent="Unable to resume audio."}}else audio.pause();return}
+  if(currentNarration?.status!==status)return;const s=window.speechSynthesis;if(s.paused){s.resume();status.textContent="Playing browser read-aloud."}else{s.pause();status.textContent="Narration paused."}
+ });
+ const stop=button("Stop",()=>{if(currentAudio===audio||currentNarration?.status===status){stopNarration();try{audio.currentTime=0}catch{}status.textContent="Narration stopped."}});
+ audio.addEventListener("play",()=>{if(currentAudio!==audio){stopNarration();currentAudio=audio}status.textContent="Playing narration."});
+ audio.addEventListener("pause",()=>{if(currentAudio===audio&&!audio.ended)status.textContent="Narration paused."});
+ audio.addEventListener("ended",()=>{if(currentAudio===audio)currentAudio=null;status.textContent="Narration finished."});
+ audio.addEventListener("error",()=>{if(currentAudio===audio)currentAudio=null;status.textContent="Audio unavailable. Try browser read-aloud below or read the transcript."});
+ const transcript=make("details");transcript.open=true;transcript.append(make("summary","Transcript and spiritual context"),make("p",record.story),make("h4","Cultural symbolism"),make("p",record.symbolism),link("Narrative source",record.storySource));if(record.symbolSource)transcript.append(add(make("p"),link("Symbolism reference",record.symbolSource)));
+ const alternate=make("details");alternate.append(make("summary","Browser read-aloud alternative"),button("Read aloud",speakFallback));
+ box.append(make("p",record.storyType,"eyebrow"),make("h3",record.storyTitle),make("p","Synthetic educational narration; not an archival or community recording.","note"),audio,add(make("div",undefined,"actions"),play,pause,stop,rate),status,alternate,transcript);
+ return box
+}
+function provenanceCard(record){
+ return add(make("section",undefined,"record-card"),make("h3","Artwork documentation"),make("p",record.title),make("p",record.archive),make("p",record.certification,"note"),link("View institutional record",record.record))
+}
+function profileCard(record){
+ const box=make("article",undefined,"profile-card"),dl=make("dl");
+ for(const [label,value] of [["Village and community",record.village],["Artistic lineage and training",record.lineage],["National honours",record.honours]])dl.append(make("dt",label),make("dd",value));
+ box.append(make("h3",record.artisan),make("p",record.bio),dl,make("p","Related heritage profile; not necessarily the maker of the reference photograph.","note"),link("Profile reference",record.profileSource));if(record.awardSource)box.append(add(make("p"),link("Award reference",record.awardSource)));return box
+}
+
+let lastFocus=null;
+function openDetail(item){stopNarration();lastFocus=document.activeElement;const title=make("h2",item.name);title.id="detail-title";$("detail-content").replaceChildren(make("p",item.region,"eyebrow"),title,artworkViewer(item),make("p",item.material),make("p",item.detail),provenanceCard(heritage[item.id]),storyPlayer(heritage[item.id]),make("h3","Artisan heritage"),profileCard(heritage[item.id]),link(item.sourceName,item.source));$("detail").showModal();$("close-detail").focus()}
+$("close-detail").addEventListener("click",()=>$("detail").close());$("detail").addEventListener("close",()=>{stopNarration();lastFocus?.focus()});$("detail").addEventListener("click",e=>{if(e.target===$("detail"))$("detail").close()});
+function renderCollection(){const query=$("search").value.trim().toLowerCase(),type=$("filter").value,category=$("category-filter").value;const items=exhibits.filter(x=>(type==="all"||type===x.type)&&(category==="all"||category===x.category)&&[x.category,x.name,x.region,x.artisan,x.material,x.place,heritage[x.id].artisan,heritage[x.id].title].join(" ").toLowerCase().includes(query));$("exhibits").replaceChildren(...items.map(x=>{const card=make("article",undefined,"card");return add(card,artwork(x),make("p",x.category+" · "+x.region,"eyebrow"),make("h3",x.name),make("p",x.summary),button("Explore tradition",()=>openDetail(x)))}));$("results").textContent=items.length+" tradition"+(items.length===1?"":"s")+" found.";if(!items.length)$("exhibits").append(make("p","No matching exhibits. Try another search or filter."))}
+$("search").addEventListener("input",renderCollection);$("filter").addEventListener("change",renderCollection);$("category-filter").addEventListener("change",renderCollection);renderCollection();
+// Browse the virtual exhibition with ordinary HTML and JavaScript.
+let current=0;
+function showGallery(){
+ const x=exhibits[current];
+ $("gallery-info").replaceChildren(make("p",(current+1)+" of "+exhibits.length),make("h3",x.name),artwork(x),make("p",x.region+" · "+x.material),make("p",x.summary),button("Read exhibit details",()=>openDetail(x)));
+}
+function navigate(delta){current=(current+delta+exhibits.length)%exhibits.length;showGallery()}
+$("prev-exhibit").addEventListener("click",()=>navigate(-1));
+$("next-exhibit").addEventListener("click",()=>navigate(1));
+showGallery();
+for(const x of exhibits)$("artisan-list").append(profileCard(heritage[x.id]));
+// Fair trade: values always have a textual equivalent and CSS fallback.
+const priceIds=["materials","labour","logistics","overhead"],labels=["Materials","Artisan labour","Packaging & logistics","Retail & overhead"],colors=["#a34d34","#435a44","#e8d9c5","#594132"],defaults=[250,500,100,150];const money=n=>new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:0}).format(n);
+function prices(){return priceIds.map(id=>{const n=Number($(id).value);return Number.isFinite(n)?Math.min(100000,Math.max(0,Math.round(n))):0})}
+function renderPrice(){const values=prices(),total=values.reduce((a,b)=>a+b,0);$("total").textContent=money(total);$("price-warning").textContent=total===0?"Enter a positive cost to see a breakdown.":priceIds.some((id,i)=>Number($(id).value)!==values[i])?"Values are rounded and limited to ₹0–₹100,000 per component.":"";$("price-bar").replaceChildren(...values.map((n,i)=>{const s=make("span");s.style.background=colors[i];s.style.width=(total?n/total*100:0)+"%";return s}));$("legend").replaceChildren(...values.map((n,i)=>{const sw=make("i");sw.style.background=colors[i];sw.setAttribute("aria-hidden","true");return add(make("div"),add(make("span"),sw,document.createTextNode(labels[i])),make("strong",money(n)+" · "+(total?(n/total*100).toFixed(1):"0.0")+"%"))}));}
+for(const id of priceIds){$(id).addEventListener("input",renderPrice);$(id).addEventListener("change",()=>{$(id).value=prices()[priceIds.indexOf(id)];renderPrice()})}$("reset-price").addEventListener("click",()=>{priceIds.forEach((id,i)=>$(id).value=defaults[i]);renderPrice()});renderPrice();
+
+const sources=new Map(exhibits.map(x=>[x.source,x.sourceName]));milestones.forEach(x=>sources.set(x.url,"PIB — "+x.title));sources.set("https://tribex.tribal.gov.in/repository/details/MTA0","Tribex — Sohrai works and livelihoods");sources.set("https://ignca.gov.in/divisionss/janapada-sampada/tribal-art-culture/adivasi-art-culture/the-gond-of-madhya-pradesh/","IGNCA — The Gond of Madhya Pradesh");sources.set("https://trifed.tribal.gov.in/en/division/retail-marketing","TRIFED — Retail marketing");for(const rec of Object.values(heritage)){for(const [key,label] of [["record","Artwork record"],["storySource","Narrative"],["symbolSource","Symbolism"],["profileSource","Artisan profile"],["awardSource","Honours"]])if(rec[key]&&!sources.has(rec[key]))sources.set(rec[key],label+" — "+rec.title)}for(const m of Object.values(media))sources.set(m.source,"Wikimedia Commons — "+m.alt+" ("+m.credit+", "+m.license+")");for(const [url,title] of sources)$("source-list").append(add(make("li"),link(title,url)));
