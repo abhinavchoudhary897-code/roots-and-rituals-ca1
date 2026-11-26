@@ -1,14 +1,15 @@
-/* Reference photographs: file credits and licences are separate from underlying artwork rights. */
+/* Museum and contextual photograph records; rights terms are identified separately. */
 window.EXHIBIT_MEDIA = {
   "warli": {
-    "preview": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Warli_art_-_acrylic_painting_on_canvas.jpg/960px-Warli_art_-_acrylic_painting_on_canvas.jpg",
-    "original": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Warli_art_-_acrylic_painting_on_canvas.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Warli_art_-_acrylic_painting_on_canvas.jpg",
-    "credit": "PVRMurty1944",
-    "license": "CC0 1.0",
-    "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "alt": "Warli-style acrylic painting on canvas",
-    "note": "Own-work CC0 upload; creator's community affiliation is not stated. May be used as a contextual Warli-style example, not an identified artisan work. Original file: 3,108 × 3,220 pixels."
+    "preview": "https://content.ngv.vic.gov.au/retrieve.php?size=1280&type=image&vernonID=155150",
+    "original": "https://content.ngv.vic.gov.au/retrieve.php?size=1280&type=image&vernonID=155150",
+    "source": "https://www.ngv.vic.gov.au/explore/collection/work/155150/",
+    "credit": "Warli people, Warli drawing (c. 1980), Gift of Jim Masselos, 2026. Photo: National Gallery of Victoria, Melbourne.",
+    "license": "NGV non-commercial image terms",
+    "licenseURL": "https://www.ngv.vic.gov.au/explore/collection/copyrightreproductions/",
+    "alt": "Warli drawing, c. 1980, brush and ink on paper",
+    "note": "Museum identifies the work as public domain and offers non-commercial publication use. Reproduced in full with the required credit. The displayed file is the museum's 1280-size online image.",
+    "institution": "National Gallery of Victoria"
   },
   "gond": {
     "preview": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Gond_art_of_India_MG_8704.jpg/500px-Gond_art_of_India_MG_8704.jpg",
@@ -31,14 +32,15 @@ window.EXHIBIT_MEDIA = {
     "note": "Craft maker not identified in the file record."
   },
   "sohrai": {
-    "preview": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Jadupatua_painting.jpg/500px-Jadupatua_painting.jpg",
-    "original": "https://upload.wikimedia.org/wikipedia/commons/6/63/Jadupatua_painting.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Jadupatua_painting.jpg",
-    "credit": "Rohini",
-    "license": "CC BY-SA 3.0",
-    "licenseURL": "https://creativecommons.org/licenses/by-sa/3.0/",
-    "alt": "Framed Jadupatua painting of stylised colourful birds",
-    "note": "Photographed reference, 3,096 × 4,043 pixels in the source record. The maker and depicted narrative are not identified; this is not the Cambridge scroll. The file licence does not establish underlying artwork clearance."
+    "preview": "https://content.ngv.vic.gov.au/retrieve.php?size=1280&type=image&vernonID=99492",
+    "original": "https://content.ngv.vic.gov.au/retrieve.php?size=1280&type=image&vernonID=99492",
+    "source": "https://www.ngv.vic.gov.au/explore/collection/work/99492/",
+    "credit": "Indian, Santal Jadupatua scroll (20th century), National Gallery of Victoria, Melbourne, Gift of John McCarthy through the Australian Government’s Cultural Gifts Program, 2011. Photo: National Gallery of Victoria, Melbourne.",
+    "license": "NGV non-commercial image terms",
+    "licenseURL": "https://www.ngv.vic.gov.au/explore/collection/copyrightreproductions/",
+    "alt": "Santal Jadupatua scroll, twentieth century, watercolour on paper",
+    "note": "Museum accession 2011.315. The museum believes the work to be public domain and offers non-commercial publication use with full credit and uncropped reproduction. The displayed file is the museum's 1280-size online image.",
+    "institution": "National Gallery of Victoria"
   },
   "pithora": {
     "preview": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Pithora_wall_painting.JPG/960px-Pithora_wall_painting.JPG",
