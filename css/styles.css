@@ -99,3 +99,9 @@ dl{margin:12px 0}dt{font-weight:bold}dd{margin:0 0 9px}
 .image-information p{margin:4px 0}
 #gallery-info .artwork-viewer .actions{justify-content:center}
 @media(max-width:560px){.artwork-viewport{--view-height:clamp(240px,75vw,340px)}.viewer-controls{gap:6px}.viewer-controls button{font-size:13px;padding:7px 9px}}
+
+/* Reserve card image and status space before network requests complete. */
+#exhibits .exhibit-media{flex-shrink:0}
+#exhibits .media-image,#exhibits .media-fallback{height:220px;min-height:220px}
+#exhibits .media-fallback{overflow:auto}
+#results{min-height:1.6em}
