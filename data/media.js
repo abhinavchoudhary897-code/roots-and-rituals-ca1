@@ -46,13 +46,12 @@ window.EXHIBIT_MEDIA = {
     "institution": "National Gallery of Victoria"
   },
   "pithora": {
-    "preview": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Pithora_wall_painting.JPG/960px-Pithora_wall_painting.JPG",
-    "original": "https://upload.wikimedia.org/wikipedia/commons/2/22/Pithora_wall_painting.JPG",
-    "source": "https://commons.wikimedia.org/wiki/File:Pithora_wall_painting.JPG",
-    "credit": "Anilbhardwajnoida",
-    "license": "CC BY-SA 3.0",
-    "licenseURL": "https://creativecommons.org/licenses/by-sa/3.0/",
-    "alt": "Photograph of Pithora wall painting at the Crafts Museum, New Delhi",
-    "note": "Public museum display; no claim of permission to reproduce a ceremonial design."
+    "linkOnly": true,
+    "source": "https://collections.maa.cam.ac.uk/objects/561793/",
+    "credit": "Pithoro — Mansingh Rathwa, 2016, Cambridge Museum of Archaeology and Anthropology, accession 2016.212",
+    "license": "Link to museum record; image reproduction permission not established",
+    "licenseURL": "https://collections.maa.cam.ac.uk/",
+    "alt": "Museum record for Pithoro by Mansingh Rathwa",
+    "note": "Artwork displayed on the museum website; this exhibition links to the record without reproducing the image."
   }
 };
