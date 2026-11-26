@@ -32,15 +32,10 @@ button:disabled{opacity:.5;cursor:default}
 input,select{font:inherit;padding:8px;border:1px solid #a99c8c;border-radius:4px;max-width:100%;background:white}
 figure{margin:0;width:100%}.media-image{width:100%;height:220px;object-fit:contain;background:#eee5d6;display:block}
 .hero .media-image{height:280px}
-#gallery-info .media-image{height:300px}
 figcaption,.note,.status{font-size:13px;color:var(--brown);overflow-wrap:anywhere;margin:8px 0}
 .media-fallback{background:#eee5d6;padding:18px;display:grid;align-content:center;gap:8px;min-height:220px}
 dialog{width:min(800px,94vw);max-height:90vh;border:1px solid var(--border);padding:20px;border-radius:6px;background:var(--paper);color:var(--ink)}
 dialog::backdrop{background:#0008}.dialog-top{display:flex;justify-content:flex-end}
-.artwork-viewport{max-height:420px;overflow:auto;background:#eee5d6;padding:12px}
-.artwork-viewport .media-image{height:auto;max-width:none;min-height:100px}
-.artwork-viewport.room-mode{padding:35px 16%;background:linear-gradient(#eee5d6 70%,#a68a70 70%)}
-.room-mode .media-image{border:7px solid var(--brown);padding:6px;background:white;max-height:260px}
 .artwork-viewer,.story-player,.record-card{padding:12px 0;border-bottom:1px solid var(--border)}
 audio{display:block;width:100%;margin:10px 0}
 summary{cursor:pointer;font-weight:bold;color:var(--green);margin:12px 0}
@@ -51,7 +46,7 @@ dl{margin:12px 0}dt{font-weight:bold}dd{margin:0 0 9px}
 .source-list li{margin:8px 0;overflow-wrap:anywhere}
 [hidden]{display:none!important}
 @media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero,.split{grid-template-columns:1fr}.menu{display:inline-block}nav{display:none;width:100%}nav.open{display:flex}}
-@media(max-width:560px){.grid{grid-template-columns:1fr}.tools{align-items:stretch;flex-direction:column}.hero .media-image,#gallery-info .media-image{height:220px}section{padding:22px 0}.card,.panel,.profile-card{padding:13px}dialog{padding:12px}.artwork-viewport.room-mode{padding:20px 8%}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.tools{align-items:stretch;flex-direction:column}.hero .media-image{height:220px}section{padding:22px 0}.card,.panel,.profile-card{padding:13px}dialog{padding:12px}}
 
 /* Keep browsing, listening and gallery controls easy to find. */
 #exhibits .card h3{margin:8px 0}#exhibits .card .eyebrow{margin-bottom:0}
@@ -59,8 +54,6 @@ dl{margin:12px 0}dt{font-weight:bold}dd{margin:0 0 9px}
 
 
 
-#gallery-info .artwork-viewport .media-image{height:auto}
-#gallery-info .artwork-viewport.room-mode .media-image{max-height:260px}
 #gallery-info .artwork-viewer{padding:0;border:0}
 #gallery-info .artwork-viewer>h3{font-size:16px}
 #detail .dialog-top{position:sticky;top:0;background:var(--paper);z-index:1;padding:0 0 8px}
@@ -80,9 +73,6 @@ dl{margin:12px 0}dt{font-weight:bold}dd{margin:0 0 9px}
 #fair-trade{background:#f0e6d9}
 
 .gallery-navigation{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.gallery-navigation .actions{margin:0 0 12px}
-#gallery-info .artwork-viewport{max-height:480px;max-width:820px;margin:auto;background:#e8dcc9}
-#gallery-info .artwork-viewport img{min-height:180px;max-height:none}
-#gallery-info .artwork-viewport.room-mode img{max-height:260px}
 #gallery-info .artwork-viewer .actions{justify-content:center}
 #gallery-info .artwork-viewer>h3{margin:4px 0;font-size:16px}
 #detail-story,#detail-artist,.exhibit-references{scroll-margin-top:65px}
@@ -90,6 +80,22 @@ dl{margin:12px 0}dt{font-weight:bold}dd{margin:0 0 9px}
 #detail .artwork-viewer{padding-top:10px}#detail .profile-card{background:#fffdf8}
 #sources{padding:28px 0}.source-list{padding-left:20px}
 @media(max-width:850px){.hero{gap:20px}#exhibits{grid-template-columns:repeat(2,minmax(0,1fr))}#exhibits .card,#exhibits .card:nth-child(4),#exhibits .card:nth-child(5){grid-column:auto}}
-@media(max-width:560px){#home{padding:30px 0}#exhibits{grid-template-columns:1fr}.hero .lede{font-size:16px}.gallery-navigation .actions{width:100%;justify-content:space-between}#gallery-info .artwork-viewport{max-height:360px}.hero h1{font-size:40px}#exhibits .card{padding:14px}}
+@media(max-width:560px){#home{padding:30px 0}#exhibits{grid-template-columns:1fr}.hero .lede{font-size:16px}.gallery-navigation .actions{width:100%;justify-content:space-between}.hero h1{font-size:40px}#exhibits .card{padding:14px}}
 
 #exhibits .card-actions{width:100%;gap:8px;margin-bottom:0}#exhibits .card-actions button{font-size:14px;padding:8px 10px}
+
+/* Fit the complete picture in its viewing area. Scroll only when magnified. */
+.artwork-viewport{--view-height:clamp(240px,48vw,440px);--aspect:1;--zoom:1;height:var(--view-height);padding:12px;background:#e8dcc9;overflow:auto;display:flex;align-items:flex-start;max-width:820px;margin:auto}
+.artwork-viewport .media-image{flex:none;display:block;width:min(calc(100% * var(--zoom)),calc((var(--view-height) - 24px) * var(--aspect) * var(--zoom)));height:auto;min-height:0;max-width:none;max-height:none;object-fit:contain;margin:auto;background:transparent}
+.artwork-viewport.room-mode{background:linear-gradient(#eee5d6 76%,#a68a70 76%)}
+.artwork-viewport.room-mode .media-image{width:min(72%,calc((var(--view-height) - 100px) * var(--aspect)));border:6px solid #594132;padding:5px;background:#fffdf8;box-shadow:2px 4px 5px #302b2430}
+.artwork-viewport .media-fallback{width:100%;min-height:0;margin:auto;text-align:center}
+.artwork-viewer .exhibit-media>figcaption{text-align:center;margin:9px 0 0;font-size:12px}
+.artwork-viewer .status{text-align:center;margin:4px 0 8px}
+.viewer-controls{justify-content:center;margin:8px 0 14px;gap:8px}
+.viewer-controls button{font-size:14px;padding:8px 12px}
+.view-level{font-size:13px;min-width:62px;text-align:center;color:var(--brown)}
+.image-information summary{font-size:13px;font-weight:normal;margin:8px 0}
+.image-information p{margin:4px 0}
+#gallery-info .artwork-viewer .actions{justify-content:center}
+@media(max-width:560px){.artwork-viewport{--view-height:clamp(240px,75vw,340px)}.viewer-controls{gap:6px}.viewer-controls button{font-size:13px;padding:7px 9px}}
