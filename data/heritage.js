@@ -1,4 +1,4 @@
-// Research records: reference photographs, museum records, craft GI registration and artisan honours are distinct evidence.
+// Research records distinguish craft GI registration, artwork provenance, image rights and artisan honours.
 window.HERITAGE_RECORDS = {
   "warli": {
     "title": "The old man and seven daughters",
@@ -18,7 +18,7 @@ window.HERITAGE_RECORDS = {
     "profileSource": "https://imp-art.org/articles/jivya-soma-mashe/",
     "awardSource": "https://www.pib.gov.in/newsite/PrintRelease.aspx?lang=2&reg=48&relid=69364",
     "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/239",
-    "masterwork": "Untitled (Harvest), by Jivya Soma Mashe, documented by the Museum of Art & Photography.",
+    "masterwork": "Paintings by Jivya Soma Mashe, including works on cloth documented in the Museum of Art & Photography collection.",
     "masterworkSource": "https://imp-art.org/articles/jivya-soma-mashe/"
   },
   "gond": {
@@ -37,9 +37,11 @@ window.HERITAGE_RECORDS = {
     "lineage": "Apprenticed with Jangarh Singh Shyam, who encouraged his development as a painter.",
     "honours": "Padma Shri, 2018 (Art–Painting).",
     "bio": "A Gond painter whose work builds on traditional visual storytelling and personal experience.",
-    "profileSource": "https://ojasart.com/artists-cpt/bhajju-shyam/",
-    "awardSource": "https://www.pib.gov.in/Pressreleaseshare.aspx?PRID=1517923",
-    "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/701"
+    "profileSource": "https://ignca.gov.in/divisionss/janapada-sampada/tribal-art-culture/tribal-art-culture-of-madhya-pradesh-rajasthan/bhajju-shyam/",
+    "awardSource": "https://www.pib.gov.in/newsite/PrintRelease.aspx?lang=2&reg=48&relid=175910",
+    "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/701",
+    "masterwork": "The Unborn Fish — Bhajju Shyam, silkscreen from Creation; documented by MAP. Artwork copyright: Tara Books.",
+    "masterworkSource": "https://map-india.org/why-i-love-art-a-reminder-to-create/"
   },
   "dhokra": {
     "title": "Figure of Bull — Bastar Dokra",
@@ -53,20 +55,20 @@ window.HERITAGE_RECORDS = {
     "storySource": "https://map-india.org/sculpture-isnt-still-meera-mukherjee-and-jaidev-baghel-talk-to-each-other/",
     "artisan": "Jaidev Baghel",
     "village": "Kondagaon, Chhattisgarh; Gadhwa artisan community.",
-    "lineage": "Learned lost-wax metal casting from his father, Sirman Baghel, beginning at age eight.",
+    "lineage": "Raised in a hereditary Gadhwa metal-casting family in Kondagaon; learned the craft from his father, Sirman Baghel.",
     "honours": "National Craftsman Award, 1977, for Dhankul Puja.",
     "bio": "A master metal caster who used traditional lost-wax techniques to portray community life and ritual.",
     "profileSource": "https://map-india.org/sculpture-isnt-still-meera-mukherjee-and-jaidev-baghel-talk-to-each-other/",
-    "awardSource": "https://kondagaon.gov.in/en/one-district-one-product/",
+    "awardSource": "https://map-india.org/sculpture-isnt-still-meera-mukherjee-and-jaidev-baghel-talk-to-each-other/",
     "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/83",
-    "masterwork": "Dhankul Puja — award-winning work, 1977; Madin with Her Child, 2007 — MAP collection SCU.01555.",
+    "masterwork": "Dhankul Puja — Jaidev Baghel, 1977; winner of the National Craftsman Award.",
     "masterworkSource": "https://map-india.org/sculpture-isnt-still-meera-mukherjee-and-jaidev-baghel-talk-to-each-other/"
   },
   "sohrai": {
     "title": "Jadopatia: the Santal scroll",
     "archive": "Museum of Archaeology and Anthropology, Cambridge; accession 2016.215.1. The displayed Jadupatua painting is a separate contextual example, not an image of this accessioned scroll.",
     "record": "https://collections.maa.cam.ac.uk/objects/561796/",
-    "certification": "Cambridge museum accession 2016.215.1 documents the collection object. It is distinct from an individual certification of the reference photograph.",
+    "certification": "Jharkhand Jadupatua Paintings is registered as a geographical indication (application 1320; registration document dated 28 March 2026). The Cambridge museum accession documents a separate collection object. GI registration does not certify the reference photograph.",
     "storyTitle": "Santal creation traditions",
     "storyType": "Documented origin myth",
     "story": "One Santal creation account presented by the National Museum begins with a world covered in water. The deities seek a way to establish land. An earthworm brings soil to the surface, and a tortoise supports it. Two birds eventually lay eggs from which the first Santal ancestors emerge. This is one recorded version of the origin narrative, not the transcript of the Cambridge scroll.",
@@ -75,11 +77,14 @@ window.HERITAGE_RECORDS = {
     "symbolSource": "https://collections.maa.cam.ac.uk/objects/561796/",
     "artisan": "Neelam Nirad",
     "village": "Dumka, Jharkhand; practitioner working with the Jadopatia tradition of Santal Parganas.",
-    "lineage": "Mentored by cultural historian Dr R. K. Nirad and involved in collaboration with hereditary Jadopatia painters.",
-    "honours": "Ministry of Culture Senior Fellowship, batch 2020–21 (cultural recognition, not a National Handicrafts Award).",
+    "lineage": "Mentored by cultural historian Dr R. K. Nirad; her work supports the revival of the hereditary Jadopatia painting tradition.",
+    "honours": "Ministry of Culture fellowship, batch 2020–21 (national cultural recognition, distinct from a National Handicrafts Award).",
     "bio": "Artist and cultural revival practitioner who promotes Jadopatia painting. Her profile represents a contemporary practitioner, not the unnamed maker of the museum scroll.",
     "profileSource": "https://www.artsoullifemagazine.com/jadopatia-magical-scrolls-of-santals",
-    "awardSource": "https://www.drishtiias.com/state-pcs-current-affairs/fellowship-to-4-women-from-jharkhand-including-neelam-nirad"
+    "awardSource": "https://www.drishtiias.com/state-pcs-current-affairs/fellowship-to-4-women-from-jharkhand-including-neelam-nirad",
+    "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1320",
+    "masterwork": "Jadopatia: the Santal scroll, Cambridge MAA accession 2016.215.1; collected in West Bengal.",
+    "masterworkSource": "https://collections.maa.cam.ac.uk/objects/561796/"
   },
   "pithora": {
     "title": "Pithoro — Mansingh Rathwa, 2016",
@@ -98,7 +103,9 @@ window.HERITAGE_RECORDS = {
     "honours": "Padma Shri, 2023; Gujarat State Award, 2018 (state-level honour).",
     "bio": "He has demonstrated Pithora at cultural events and trained learners, helping preserve the practice.",
     "profileSource": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2023/apr/doc202345178301.pdf",
-    "awardSource": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=1955624&lang=2&reg=48",
-    "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/644"
+    "awardSource": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=1893797&lang=2&reg=48",
+    "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/644",
+    "masterwork": "Pithoro — Mansingh Rathwa, 2016, Cambridge MAA accession 2016.212.",
+    "masterworkSource": "https://collections.maa.cam.ac.uk/objects/561793/"
   }
 };
