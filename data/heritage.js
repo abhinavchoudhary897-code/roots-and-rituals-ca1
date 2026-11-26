@@ -97,13 +97,13 @@ window.HERITAGE_RECORDS = {
   },
   "pithora": {
     "title": "Pithoro — Mansingh Rathwa, 2016",
-    "archive": "Museum of Archaeology and Anthropology, Cambridge, accession 2016.212; paint on cloth, 80 × 97.8 cm. The contextual museum photograph is not confirmed as this work.",
+    "archive": "Museum of Archaeology and Anthropology, Cambridge, accession 2016.212; paint on cloth, 80 × 97.8 cm. The museum identifies Mansingh Rathwa as maker. This exhibition links to the museum record rather than reproducing an image without established permission.",
     "record": "https://collections.maa.cam.ac.uk/objects/561793/",
     "certification": "Pithora is registered as a geographical indication in Gujarat (certificate 385, 2021). This registration covers the art tradition, not an individual artwork certificate.",
     "storyTitle": "Horses and ritual offerings",
     "storyType": "Documented spiritual context",
-    "story": "IGNCA records Pithora painting as a significant ritual practice among Bhil communities in Jhabua. Traditionally trained painters depict horses as offerings to deities. In Rathwa households, Pithora painting also gives visual expression to sacred narratives. These traditions are not identical across communities, so the exact story of the museum photograph should not be assumed.",
-    "symbolism": "The Cambridge record describes Baba Pithora as a horse-riding deity and explains how specialist painters and ritual interpreters contribute different roles. This interpretation concerns the documented Pithoro tradition; it does not identify every figure in the reference photograph.",
+    "story": "IGNCA records Pithora painting as a significant ritual practice among Bhil communities in Jhabua. Traditionally trained painters depict horses as offerings to deities. In Rathwa households, Pithora painting also gives visual expression to sacred narratives. These traditions are not identical across communities, so the exact narrative of this particular painting should not be assumed.",
+    "symbolism": "The Cambridge record describes Baba Pithora as a horse-riding deity and explains how specialist painters and ritual interpreters contribute different roles. This interpretation concerns the documented Pithoro tradition; it does not identify every figure in the documented painting.",
     "storySource": "https://ignca.gov.in/the-bhils-of-madhya-pradesh/",
     "symbolSource": "https://collections.maa.cam.ac.uk/objects/561793/",
     "artisan": "Paresh Rathwa",
@@ -115,6 +115,8 @@ window.HERITAGE_RECORDS = {
     "awardSource": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=1893797&lang=2&reg=48",
     "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/644",
     "masterwork": "Pithoro — Mansingh Rathwa, 2016, Cambridge MAA accession 2016.212.",
-    "masterworkSource": "https://collections.maa.cam.ac.uk/objects/561793/"
+    "masterworkSource": "https://collections.maa.cam.ac.uk/objects/561793/",
+    "openCollection": "The Cambridge catalogue offers a CC BY-NC-ND 4.0 collection licence but states that permission generally needs to be obtained for works by living or recently deceased artists. We link to the object record without reproducing its image.",
+    "openCollectionSource": "https://collections.maa.cam.ac.uk/"
   }
 };
