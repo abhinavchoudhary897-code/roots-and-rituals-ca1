@@ -2,9 +2,9 @@
 window.HERITAGE_RECORDS = {
   "warli": {
     "title": "The old man and seven daughters",
-    "archive": "IGNCA Warli archive; a documented painting narrative, not the pictured reference artwork.",
+    "archive": "The displayed artwork is the Warli drawing (c. 1980), catalogued by the National Gallery of Victoria. The IGNCA folktale below is a related tradition, not a description of this drawing.",
     "record": "https://ignca.gov.in/from-wall-to-walls-the-warll-paintings/",
-    "certification": "Warli Painting is registered as a geographical indication (certificate 208, 2014). This registration covers the craft tradition, not the individual reference image.",
+    "certification": "Warli Painting is registered as a geographical indication (certificate 208, 2014). This registration covers the craft tradition, not an individual artwork certificate.",
     "storyTitle": "The old man and the crab",
     "storyType": "Documented folk tale",
     "story": "An elderly man with seven daughters is unable to lift a bundle of wood in the forest. A crab comes to his aid. The youngest daughter agrees to marry the crab, despite her sisters' ridicule. At his home she discovers that he is a young man. IGNCA describes this story as the subject of a Warli painting. The tale illustrates how narrative sequences can preserve oral traditions through visual art.",
@@ -70,9 +70,9 @@ window.HERITAGE_RECORDS = {
   },
   "sohrai": {
     "title": "Jadopatia: the Santal scroll",
-    "archive": "Museum of Archaeology and Anthropology, Cambridge; accession 2016.215.1. The displayed Jadupatua painting is a separate contextual example, not an image of this accessioned scroll.",
+    "archive": "The displayed artwork is the Santal Jadupatua scroll, 20th century, National Gallery of Victoria accession 2011.315. The Cambridge scroll and recorded creation account are related cultural examples.",
     "record": "https://collections.maa.cam.ac.uk/objects/561796/",
-    "certification": "Jharkhand Jadupatua Paintings is registered as a geographical indication (application 1320; registration document dated 28 March 2026). The Cambridge museum accession documents a separate collection object. GI registration does not certify the reference photograph.",
+    "certification": "Jharkhand Jadupatua Paintings is registered as a geographical indication (application 1320; registration document dated 28 March 2026). The NGV accession establishes museum collection provenance, not individual GI certification.",
     "storyTitle": "Santal creation traditions",
     "storyType": "Documented origin myth",
     "story": "One Santal creation account presented by the National Museum begins with a world covered in water. The deities seek a way to establish land. An earthworm brings soil to the surface, and a tortoise supports it. Two birds eventually lay eggs from which the first Santal ancestors emerge. This is one recorded version of the origin narrative, not the transcript of the Cambridge scroll.",
