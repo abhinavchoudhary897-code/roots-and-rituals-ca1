@@ -1,122 +1,185 @@
 // Distinct cultural records and craft registration evidence.
 window.HERITAGE_RECORDS = {
-  "warli": {
-    "title": "The old man and seven daughters",
-    "archive": "The displayed artwork is the Warli drawing (c. 1980), catalogued by the National Gallery of Victoria. The IGNCA folktale below is a related tradition, not a description of this drawing.",
-    "record": "https://ignca.gov.in/from-wall-to-walls-the-warll-paintings/",
-    "certification": "Warli Painting is registered as a geographical indication (certificate 208, 2014). This registration covers the craft tradition, not an individual artwork certificate.",
-    "storyTitle": "The old man and the crab",
-    "storyType": "Documented folk tale",
-    "story": "An elderly man with seven daughters is unable to lift a bundle of wood in the forest. A crab comes to his aid. The youngest daughter agrees to marry the crab, despite her sisters' ridicule. At his home she discovers that he is a young man. IGNCA describes this story as the subject of a Warli painting. The tale illustrates how narrative sequences can preserve oral traditions through visual art.",
-    "symbolism": "IGNCA documents paintings associated with festivities, agriculture and ritual occasions. Harvest observances honour deities connected with the protection of crops. The reference image is not identified as a particular ritual painting.",
-    "storySource": "https://ignca.gov.in/from-wall-to-walls-the-warll-paintings/",
-    "artisan": "Jivya Soma Mashe",
-    "village": "Ganjad, near Dahanu, Maharashtra; Warli community.",
-    "lineage": "As a child he drew from the visual language of Warli wall paintings traditionally made by women in his community. He developed his own approach to painting on cloth.",
-    "honours": "National Award for Tribal Art, 1976; Shilp Guru, 2002; Padma Shri, 2011.",
-    "bio": "He helped extend Warli painting from domestic walls to permanent surfaces and wider exhibitions.",
-    "profileSource": "https://imp-art.org/articles/jivya-soma-mashe/",
-    "awardSource": "https://www.pib.gov.in/newsite/PrintRelease.aspx?lang=2&reg=48&relid=69364",
-    "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/239",
-    "masterwork": "Untitled (Warli Wedding/Chauk Palghata Mata Temple) — Jivya Soma Mashe; MAP accession PTG.00849.",
-    "masterworkSource": "https://map-india.org/collections/cumulus/living-traditions/PTG.00849/?id=4220",
-    "openCollection": "Warli drawing, c. 1980 — Warli people; National Gallery of Victoria, gift of Jim Masselos, 2026. The museum makes this image available for non-commercial use, describes the work as public domain, and requires the full credit and uncropped reproduction.",
-    "openCollectionSource": "https://www.ngv.vic.gov.au/explore/collection/work/155150/"
+  warli: {
+    title: "The old man and seven daughters",
+    archive:
+      "The displayed artwork is the Warli drawing (c. 1980), catalogued by the National Gallery of Victoria. The IGNCA folktale below is a related tradition, not a description of this drawing.",
+    record: "https://ignca.gov.in/from-wall-to-walls-the-warll-paintings/",
+    certification:
+      "Warli Painting is registered as a geographical indication (certificate 208, 2014). This registration covers the craft tradition, not an individual artwork certificate.",
+    storyTitle: "The old man and the crab",
+    storyType: "Documented folk tale",
+    story:
+      "An elderly man with seven daughters is unable to lift a bundle of wood in the forest. A crab comes to his aid. The youngest daughter agrees to marry the crab, despite her sisters' ridicule. At his home she discovers that he is a young man. IGNCA describes this story as the subject of a Warli painting. The tale illustrates how narrative sequences can preserve oral traditions through visual art.",
+    symbolism:
+      "IGNCA documents paintings associated with festivities, agriculture and ritual occasions. Harvest observances honour deities connected with the protection of crops. The reference image is not identified as a particular ritual painting.",
+    storySource: "https://ignca.gov.in/from-wall-to-walls-the-warll-paintings/",
+    artisan: "Jivya Soma Mashe",
+    village: "Ganjad, near Dahanu, Maharashtra; Warli community.",
+    lineage:
+      "As a child he drew from the visual language of Warli wall paintings traditionally made by women in his community. He developed his own approach to painting on cloth.",
+    honours:
+      "National Award for Tribal Art, 1976; Shilp Guru, 2002; Padma Shri, 2011.",
+    bio: "He helped extend Warli painting from domestic walls to permanent surfaces and wider exhibitions.",
+    profileSource: "https://imp-art.org/articles/jivya-soma-mashe/",
+    awardSource:
+      "https://www.pib.gov.in/newsite/PrintRelease.aspx?lang=2&reg=48&relid=69364",
+    giSource:
+      "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/239",
+    masterwork:
+      "Untitled (Warli Wedding/Chauk Palghata Mata Temple) — Jivya Soma Mashe; MAP accession PTG.00849.",
+    masterworkSource:
+      "https://map-india.org/collections/cumulus/living-traditions/PTG.00849/?id=4220",
+    openCollection:
+      "Warli drawing, c. 1980 — Warli people; National Gallery of Victoria, gift of Jim Masselos, 2026. The museum makes this image available for non-commercial use, describes the work as public domain, and requires the full credit and uncropped reproduction.",
+    openCollectionSource:
+      "https://www.ngv.vic.gov.au/explore/collection/work/155150/",
   },
-  "gond": {
-    "title": "Untitled (Tree of Life)",
-    "archive": "Sarmaya Arts Foundation, accession 2015.2.24; undated gouache and ink on paper, 37.8 × 28 cm. The displayed artwork is the same accessioned work.",
-    "record": "https://sarmaya.in/objects/indigenous-tribal-art/untitled-tree-of-life-2/",
-    "certification": "The Gond Painting of Madhya Pradesh GI registration documents the craft tradition. Sarmaya accession 2015.2.24 documents the individual painting, and Wikimedia permission ticket 2019031810003182 documents licensed reuse. These are not an individual GI certificate.",
-    "storyTitle": "The mahua tree and community life",
-    "storyType": "Documented artwork narrative",
-    "story": "Durgabai Vyam depicts women gathering mahua flowers during the early summer. Birds inhabit the branches of the tree, which is central to Gond-Pardhan community life. Families use the flowers in food and drink. Her repeating rice-grain-like marks connect the everyday harvest with her distinctive visual language.",
-    "symbolism": "Sarmaya identifies the mahua as the tree of life for Gond-Pardhan communities. It has an important place in ceremonies and rituals. The painting brings together the everyday collection of flowers and the tree's cultural importance.",
-    "storySource": "https://sarmaya.in/objects/indigenous-tribal-art/untitled-tree-of-life-2/",
-    "symbolSource": "https://sarmaya.in/objects/indigenous-tribal-art/untitled-tree-of-life-2/",
-    "artisan": "Durgabai Vyam",
-    "village": "Burbaspur, Madhya Pradesh; Pardhan Gond community.",
-    "lineage": "Practised domestic wall painting in childhood, then learned from her mentor Jangarh Singh Shyam and her husband Subhash Vyam.",
-    "honours": "Padma Shri, 2022 (Art).",
-    "bio": "A Gond artist who preserves stories learned from older generations and teaches the painting tradition to younger artists.",
-    "profileSource": "https://cbcindia.gov.in/wp-content/themes/boc/mann_ki_baat/e_july23/files/basic-html/page36.html",
-    "awardSource": "https://cbcindia.gov.in/wp-content/themes/boc/mann_ki_baat/e_july23/files/basic-html/page36.html",
-    "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/701",
-    "masterwork": "Untitled (Tree of Life) — Durgabai Vyam, Sarmaya accession 2015.2.24.",
-    "masterworkSource": "https://sarmaya.in/objects/indigenous-tribal-art/untitled-tree-of-life-2/",
-    "openCollection": "The artwork image has a CC BY 4.0 licence backed by Wikimedia VRT permission ticket 2019031810003182. The licensed file is used unaltered.",
-    "openCollectionSource": "https://commons.wikimedia.org/wiki/File:2015.2.24_Durga_Bai_Gond.jpg"
+  gond: {
+    title: "Untitled (Tree of Life)",
+    archive:
+      "Sarmaya Arts Foundation, accession 2015.2.24; undated gouache and ink on paper, 37.8 × 28 cm. The displayed artwork is the same accessioned work.",
+    record:
+      "https://sarmaya.in/objects/indigenous-tribal-art/untitled-tree-of-life-2/",
+    certification:
+      "The Gond Painting of Madhya Pradesh GI registration documents the craft tradition. Sarmaya accession 2015.2.24 documents the individual painting, and Wikimedia permission ticket 2019031810003182 documents licensed reuse. These are not an individual GI certificate.",
+    storyTitle: "The mahua tree and community life",
+    storyType: "Documented artwork narrative",
+    story:
+      "Durgabai Vyam depicts women gathering mahua flowers during the early summer. Birds inhabit the branches of the tree, which is central to Gond-Pardhan community life. Families use the flowers in food and drink. Her repeating rice-grain-like marks connect the everyday harvest with her distinctive visual language.",
+    symbolism:
+      "Sarmaya identifies the mahua as the tree of life for Gond-Pardhan communities. It has an important place in ceremonies and rituals. The painting brings together the everyday collection of flowers and the tree's cultural importance.",
+    storySource:
+      "https://sarmaya.in/objects/indigenous-tribal-art/untitled-tree-of-life-2/",
+    symbolSource:
+      "https://sarmaya.in/objects/indigenous-tribal-art/untitled-tree-of-life-2/",
+    artisan: "Durgabai Vyam",
+    village: "Burbaspur, Madhya Pradesh; Pardhan Gond community.",
+    lineage:
+      "Practised domestic wall painting in childhood, then learned from her mentor Jangarh Singh Shyam and her husband Subhash Vyam.",
+    honours: "Padma Shri, 2022 (Art).",
+    bio: "A Gond artist who preserves stories learned from older generations and teaches the painting tradition to younger artists.",
+    profileSource:
+      "https://cbcindia.gov.in/wp-content/themes/boc/mann_ki_baat/e_july23/files/basic-html/page36.html",
+    awardSource:
+      "https://cbcindia.gov.in/wp-content/themes/boc/mann_ki_baat/e_july23/files/basic-html/page36.html",
+    giSource:
+      "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/701",
+    masterwork:
+      "Untitled (Tree of Life) — Durgabai Vyam, Sarmaya accession 2015.2.24.",
+    masterworkSource:
+      "https://sarmaya.in/objects/indigenous-tribal-art/untitled-tree-of-life-2/",
+    openCollection:
+      "The artwork image has a CC BY 4.0 licence backed by Wikimedia VRT permission ticket 2019031810003182. The licensed file is used unaltered.",
+    openCollectionSource:
+      "https://commons.wikimedia.org/wiki/File:2015.2.24_Durga_Bai_Gond.jpg",
   },
-  "dhokra": {
-    "title": "Two Goddesses Seated on an Elephant",
-    "archive": "Arthur M. Sackler Gallery, Smithsonian, accession S1990.3a-g, 19th–20th century, brass, Bastar district. The museum record identifies the displayed object; maker and full ownership history are not established.",
-    "record": "https://asia-archive.si.edu/object/S1990.3a-g/",
-    "certification": "Bastar Dhokra GI registration documents the craft tradition; Smithsonian accession S1990.3a-g documents this regional brass object, not an individual GI certificate.",
-    "storyTitle": "Two goddesses on an elephant",
-    "storyType": "Documented devotional iconography",
-    "story": "This historic Bastar brass sculpture shows two goddesses riding an elephant. An elephant driver sits at its neck. A trident stands between the divine figures, and a canopy shelters them. The museum identifies the umbrella as a sign of divinity. The figures offer an example of the devotional imagery preserved in Bastar metalwork.",
-    "symbolism": "The Smithsonian catalogue identifies the umbrella as a sign of divine status. The trident is depicted between the two goddesses. The record does not name the goddesses or identify a particular myth.",
-    "storySource": "https://asia-archive.si.edu/object/S1990.3a-g/",
-    "artisan": "Jaidev Baghel",
-    "village": "Kondagaon, Chhattisgarh; Gadhwa artisan community.",
-    "lineage": "Raised in a hereditary Gadhwa metal-casting family in Kondagaon; learned the craft from his father, Sirman Baghel.",
-    "honours": "National Craftsman Award, 1977, for Dhankul Puja.",
-    "bio": "A master metal caster who used traditional lost-wax techniques to portray community life and ritual.",
-    "profileSource": "https://map-india.org/sculpture-isnt-still-meera-mukherjee-and-jaidev-baghel-talk-to-each-other/",
-    "awardSource": "https://map-india.org/sculpture-isnt-still-meera-mukherjee-and-jaidev-baghel-talk-to-each-other/",
-    "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/83",
-    "masterwork": "Dhankul Puja — Jaidev Baghel, 1977; winner of the National Craftsman Award.",
-    "masterworkSource": "https://map-india.org/sculpture-isnt-still-meera-mukherjee-and-jaidev-baghel-talk-to-each-other/",
-    "symbolSource": "https://asia-archive.si.edu/object/S1990.3a-g/",
-    "openCollection": "Museum accession S1990.3a-g. The Smithsonian labels the image Usage Conditions Apply and allows educational and non-commercial use consistent with its terms and applicable law; this is not an unrestricted licence.",
-    "openCollectionSource": "https://www.si.edu/termsofuse"
+  dhokra: {
+    title: "Two Goddesses Seated on an Elephant",
+    archive:
+      "Arthur M. Sackler Gallery, Smithsonian, accession S1990.3a-g, 19th–20th century, brass, Bastar district. The museum record identifies the displayed object; maker and full ownership history are not established.",
+    record: "https://asia-archive.si.edu/object/S1990.3a-g/",
+    certification:
+      "Bastar Dhokra GI registration documents the craft tradition; Smithsonian accession S1990.3a-g documents this regional brass object, not an individual GI certificate.",
+    storyTitle: "Two goddesses on an elephant",
+    storyType: "Documented devotional iconography",
+    story:
+      "This historic Bastar brass sculpture shows two goddesses riding an elephant. An elephant driver sits at its neck. A trident stands between the divine figures, and a canopy shelters them. The museum identifies the umbrella as a sign of divinity. The figures offer an example of the devotional imagery preserved in Bastar metalwork.",
+    symbolism:
+      "The Smithsonian catalogue identifies the umbrella as a sign of divine status. The trident is depicted between the two goddesses. The record does not name the goddesses or identify a particular myth.",
+    storySource: "https://asia-archive.si.edu/object/S1990.3a-g/",
+    artisan: "Jaidev Baghel",
+    village: "Kondagaon, Chhattisgarh; Gadhwa artisan community.",
+    lineage:
+      "Raised in a hereditary Gadhwa metal-casting family in Kondagaon; learned the craft from his father, Sirman Baghel.",
+    honours: "National Craftsman Award, 1977, for Dhankul Puja.",
+    bio: "A master metal caster who used traditional lost-wax techniques to portray community life and ritual.",
+    profileSource:
+      "https://map-india.org/sculpture-isnt-still-meera-mukherjee-and-jaidev-baghel-talk-to-each-other/",
+    awardSource:
+      "https://map-india.org/sculpture-isnt-still-meera-mukherjee-and-jaidev-baghel-talk-to-each-other/",
+    giSource:
+      "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/83",
+    masterwork:
+      "Dhankul Puja — Jaidev Baghel, 1977; winner of the National Craftsman Award.",
+    masterworkSource:
+      "https://map-india.org/sculpture-isnt-still-meera-mukherjee-and-jaidev-baghel-talk-to-each-other/",
+    symbolSource: "https://asia-archive.si.edu/object/S1990.3a-g/",
+    openCollection:
+      "Museum accession S1990.3a-g. The Smithsonian labels the image Usage Conditions Apply and allows educational and non-commercial use consistent with its terms and applicable law; this is not an unrestricted licence.",
+    openCollectionSource: "https://www.si.edu/termsofuse",
   },
-  "sohrai": {
-    "title": "Jadopatia: the Santal scroll",
-    "archive": "The displayed artwork is the Santal Jadupatua scroll, 20th century, National Gallery of Victoria accession 2011.315. The Cambridge scroll and recorded creation account are related cultural examples.",
-    "record": "https://collections.maa.cam.ac.uk/objects/561796/",
-    "certification": "Jharkhand Jadupatua Paintings is registered as a geographical indication (application 1320; registration document dated 28 March 2026). The NGV accession establishes museum collection provenance, not individual GI certification.",
-    "storyTitle": "Santal creation traditions",
-    "storyType": "Documented origin myth",
-    "story": "One Santal creation account presented by the National Museum begins with a world covered in water. The deities seek a way to establish land. An earthworm brings soil to the surface, and a tortoise supports it. Two birds eventually lay eggs from which the first Santal ancestors emerge. This is one recorded version of the origin narrative, not the transcript of the Cambridge scroll.",
-    "symbolism": "The Cambridge museum identifies its scroll with Karam Binti, a creation narrative. Sequential painted panels accompany sung storytelling. The museum notes that the scroll was produced for Santal communities by a Jadopatia painter, rather than necessarily by a Santal artist.",
-    "storySource": "https://artsandculture.google.com/story/cadence-and-counterpoint-documenting-santal-musical-traditions-national-museum-delhi/dAURi2xsSQFgKA?hl=en",
-    "symbolSource": "https://collections.maa.cam.ac.uk/objects/561796/",
-    "artisan": "Neelam Nirad",
-    "village": "Dumka, Jharkhand; practitioner working with the Jadopatia tradition of Santal Parganas.",
-    "lineage": "Mentored by cultural historian Dr R. K. Nirad; her work supports the revival of the hereditary Jadopatia painting tradition.",
-    "honours": "Ministry of Culture fellowship, batch 2020–21 (national cultural recognition, distinct from a National Handicrafts Award).",
-    "bio": "Artist and cultural revival practitioner who promotes Jadopatia painting. Her profile represents a contemporary practitioner, not the unnamed maker of the museum scroll.",
-    "profileSource": "https://www.artsoullifemagazine.com/jadopatia-magical-scrolls-of-santals",
-    "awardSource": "https://www.drishtiias.com/state-pcs-current-affairs/fellowship-to-4-women-from-jharkhand-including-neelam-nirad",
-    "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1320",
-    "masterwork": "Jadopatia: the Santal scroll, Cambridge MAA accession 2016.215.1; collected in West Bengal.",
-    "masterworkSource": "https://collections.maa.cam.ac.uk/objects/561796/",
-    "openCollection": "Santal Jadupatua scroll, 20th century — National Gallery of Victoria accession 2011.315, gift of John McCarthy, 2011. The museum provides a non-commercial image download and believes the work is public domain; observe its credit and full-image conditions.",
-    "openCollectionSource": "https://www.ngv.vic.gov.au/explore/collection/work/99492/"
+  sohrai: {
+    title: "Jadopatia: the Santal scroll",
+    archive:
+      "The displayed artwork is the Santal Jadupatua scroll, 20th century, National Gallery of Victoria accession 2011.315. The Cambridge scroll and recorded creation account are related cultural examples.",
+    record: "https://collections.maa.cam.ac.uk/objects/561796/",
+    certification:
+      "Jharkhand Jadupatua Paintings is registered as a geographical indication (application 1320; registration document dated 28 March 2026). The NGV accession establishes museum collection provenance, not individual GI certification.",
+    storyTitle: "Santal creation traditions",
+    storyType: "Documented origin myth",
+    story:
+      "One Santal creation account presented by the National Museum begins with a world covered in water. The deities seek a way to establish land. An earthworm brings soil to the surface, and a tortoise supports it. Two birds eventually lay eggs from which the first Santal ancestors emerge. This is one recorded version of the origin narrative, not the transcript of the Cambridge scroll.",
+    symbolism:
+      "The Cambridge museum identifies its scroll with Karam Binti, a creation narrative. Sequential painted panels accompany sung storytelling. The museum notes that the scroll was produced for Santal communities by a Jadopatia painter, rather than necessarily by a Santal artist.",
+    storySource:
+      "https://artsandculture.google.com/story/cadence-and-counterpoint-documenting-santal-musical-traditions-national-museum-delhi/dAURi2xsSQFgKA?hl=en",
+    symbolSource: "https://collections.maa.cam.ac.uk/objects/561796/",
+    artisan: "Neelam Nirad",
+    village:
+      "Dumka, Jharkhand; practitioner working with the Jadopatia tradition of Santal Parganas.",
+    lineage:
+      "Mentored by cultural historian Dr R. K. Nirad; her work supports the revival of the hereditary Jadopatia painting tradition.",
+    honours:
+      "Ministry of Culture fellowship, batch 2020–21 (national cultural recognition, distinct from a National Handicrafts Award).",
+    bio: "Artist and cultural revival practitioner who promotes Jadopatia painting. Her profile represents a contemporary practitioner, not the unnamed maker of the museum scroll.",
+    profileSource:
+      "https://www.artsoullifemagazine.com/jadopatia-magical-scrolls-of-santals",
+    awardSource:
+      "https://www.drishtiias.com/state-pcs-current-affairs/fellowship-to-4-women-from-jharkhand-including-neelam-nirad",
+    giSource:
+      "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1320",
+    masterwork:
+      "Jadopatia: the Santal scroll, Cambridge MAA accession 2016.215.1; collected in West Bengal.",
+    masterworkSource: "https://collections.maa.cam.ac.uk/objects/561796/",
+    openCollection:
+      "Santal Jadupatua scroll, 20th century — National Gallery of Victoria accession 2011.315, gift of John McCarthy, 2011. The museum provides a non-commercial image download and believes the work is public domain; observe its credit and full-image conditions.",
+    openCollectionSource:
+      "https://www.ngv.vic.gov.au/explore/collection/work/99492/",
   },
-  "pithora": {
-    "title": "Pithoro — Mansingh Rathwa, 2016",
-    "archive": "Museum of Archaeology and Anthropology, Cambridge, accession 2016.212; paint on cloth, 80 × 97.8 cm. The museum identifies Mansingh Rathwa as maker. This exhibition links to the museum record rather than reproducing an image without established permission.",
-    "record": "https://collections.maa.cam.ac.uk/objects/561793/",
-    "certification": "Pithora is registered as a geographical indication in Gujarat (certificate 385, 2021). This registration covers the art tradition, not an individual artwork certificate.",
-    "storyTitle": "Horses and ritual offerings",
-    "storyType": "Documented spiritual context",
-    "story": "IGNCA records Pithora painting as a significant ritual practice among Bhil communities in Jhabua. Traditionally trained painters depict horses as offerings to deities. In Rathwa households, Pithora painting also gives visual expression to sacred narratives. These traditions are not identical across communities, so the exact narrative of this particular painting should not be assumed.",
-    "symbolism": "The Cambridge record describes Baba Pithora as a horse-riding deity and explains how specialist painters and ritual interpreters contribute different roles. This interpretation concerns the documented Pithoro tradition; it does not identify every figure in the documented painting.",
-    "storySource": "https://ignca.gov.in/the-bhils-of-madhya-pradesh/",
-    "symbolSource": "https://collections.maa.cam.ac.uk/objects/561793/",
-    "artisan": "Paresh Rathwa",
-    "village": "Kavant, Chhota Udepur district, Gujarat; Rathwa community.",
-    "lineage": "Accompanied local Pithora painters from childhood and was recognised by his community as a Lakhara at age 22.",
-    "honours": "Padma Shri, 2023; Gujarat State Award, 2018 (state-level honour).",
-    "bio": "He has demonstrated Pithora at cultural events and trained learners, helping preserve the practice.",
-    "profileSource": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2023/apr/doc202345178301.pdf",
-    "awardSource": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=1893797&lang=2&reg=48",
-    "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/644",
-    "masterwork": "Pithoro — Mansingh Rathwa, 2016, Cambridge MAA accession 2016.212.",
-    "masterworkSource": "https://collections.maa.cam.ac.uk/objects/561793/",
-    "openCollection": "The Cambridge catalogue offers a CC BY-NC-ND 4.0 collection licence but states that permission generally needs to be obtained for works by living or recently deceased artists. We link to the object record without reproducing its image.",
-    "openCollectionSource": "https://collections.maa.cam.ac.uk/"
-  }
+  pithora: {
+    title: "Pithoro — Mansingh Rathwa, 2016",
+    archive:
+      "Museum of Archaeology and Anthropology, Cambridge, accession 2016.212; paint on cloth, 80 × 97.8 cm. The museum identifies Mansingh Rathwa as maker. This exhibition links to the museum record rather than reproducing an image without established permission.",
+    record: "https://collections.maa.cam.ac.uk/objects/561793/",
+    certification:
+      "Pithora is registered as a geographical indication in Gujarat (certificate 385, 2021). This registration covers the art tradition, not an individual artwork certificate.",
+    storyTitle: "Horses and ritual offerings",
+    storyType: "Documented spiritual context",
+    story:
+      "IGNCA records Pithora painting as a significant ritual practice among Bhil communities in Jhabua. Traditionally trained painters depict horses as offerings to deities. In Rathwa households, Pithora painting also gives visual expression to sacred narratives. These traditions are not identical across communities, so the exact narrative of this particular painting should not be assumed.",
+    symbolism:
+      "The Cambridge record describes Baba Pithora as a horse-riding deity and explains how specialist painters and ritual interpreters contribute different roles. This interpretation concerns the documented Pithoro tradition; it does not identify every figure in the documented painting.",
+    storySource: "https://ignca.gov.in/the-bhils-of-madhya-pradesh/",
+    symbolSource: "https://collections.maa.cam.ac.uk/objects/561793/",
+    artisan: "Paresh Rathwa",
+    village: "Kavant, Chhota Udepur district, Gujarat; Rathwa community.",
+    lineage:
+      "Accompanied local Pithora painters from childhood and was recognised by his community as a Lakhara at age 22.",
+    honours:
+      "Padma Shri, 2023; Gujarat State Award, 2018 (state-level honour).",
+    bio: "He has demonstrated Pithora at cultural events and trained learners, helping preserve the practice.",
+    profileSource:
+      "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2023/apr/doc202345178301.pdf",
+    awardSource:
+      "https://www.pib.gov.in/PressReleasePage.aspx?PRID=1893797&lang=2&reg=48",
+    giSource:
+      "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/644",
+    masterwork:
+      "Pithoro — Mansingh Rathwa, 2016, Cambridge MAA accession 2016.212.",
+    masterworkSource: "https://collections.maa.cam.ac.uk/objects/561793/",
+    openCollection:
+      "The Cambridge catalogue offers a CC BY-NC-ND 4.0 collection licence but states that permission generally needs to be obtained for works by living or recently deceased artists. We link to the object record without reproducing its image.",
+    openCollectionSource: "https://collections.maa.cam.ac.uk/",
+  },
 };
