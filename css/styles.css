@@ -52,3 +52,19 @@ dl{margin:12px 0}dt{font-weight:bold}dd{margin:0 0 9px}
 [hidden]{display:none!important}
 @media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero,.split{grid-template-columns:1fr}.menu{display:inline-block}nav{display:none;width:100%}nav.open{display:flex}}
 @media(max-width:560px){.grid{grid-template-columns:1fr}.tools{align-items:stretch;flex-direction:column}.hero .media-image,#gallery-info .media-image{height:220px}section{padding:22px 0}.card,.panel,.profile-card{padding:13px}dialog{padding:12px}.artwork-viewport.room-mode{padding:20px 8%}}
+
+/* Keep browsing, listening and gallery controls easy to find. */
+#exhibits .card h3{margin:8px 0}#exhibits .card .eyebrow{margin-bottom:0}#exhibits .card>button{align-self:flex-start}
+#exhibits .media-credit{min-height:20px;font-size:12px}
+.story-list{list-style:none;padding:0;margin:12px 0;border-top:1px solid var(--border)}
+.story-list li{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--border)}
+.story-list p{margin:2px 0}.story-list button{flex-shrink:0}
+#gallery-info .artwork-viewport .media-image{height:auto}
+#gallery-info .artwork-viewport.room-mode .media-image{max-height:260px}
+#gallery-info .artwork-viewer{padding:0;border:0}
+#gallery-info .artwork-viewer>h3{font-size:16px}
+#detail .dialog-top{position:sticky;top:0;background:var(--paper);z-index:1;padding:0 0 8px}
+.detail-shortcuts{padding-bottom:8px;border-bottom:1px solid var(--border)}
+.story-player .actions label{display:flex;align-items:center;gap:6px}
+.exhibit-references{margin:16px 0}.profile-card .note{font-size:12px}
+@media(max-width:560px){.story-list li{gap:10px}.story-list button{padding:8px 12px}.detail-shortcuts button{font-size:14px;padding:8px 10px}}
