@@ -114,7 +114,7 @@ function openDetail(item,focusStory=false){
  else $("close-detail").focus();
 }
 $("close-detail").addEventListener("click",()=>$("detail").close());$("detail").addEventListener("close",()=>{stopNarration();lastFocus?.focus()});$("detail").addEventListener("click",e=>{if(e.target===$("detail"))$("detail").close()});
-function renderCollection(){const query=$("search").value.trim().toLowerCase(),category=$("category-filter").value;const items=exhibits.filter(x=>(category==="all"||category===x.category)&&[x.category,x.name,x.region,x.artisan,x.material,x.place,heritage[x.id].artisan,heritage[x.id].title].join(" ").toLowerCase().includes(query));$("exhibits").replaceChildren(...items.map(x=>{const card=make("article",undefined,"card");return add(card,artwork(x,false,true),make("p",x.region,"eyebrow"),make("h3",x.name),make("p",x.summary),button("Explore artwork",()=>openDetail(x)))}));$("results").textContent=items.length+" tradition"+(items.length===1?"":"s")+" found.";if(!items.length)$("exhibits").append(make("p","No matching exhibits. Try another search or filter."))}
+function renderCollection(){const query=$("search").value.trim().toLowerCase(),category=$("category-filter").value;const items=exhibits.filter(x=>(category==="all"||category===x.category)&&[x.category,x.name,x.region,x.artisan,x.material,x.place,heritage[x.id].artisan,heritage[x.id].title].join(" ").toLowerCase().includes(query));$("exhibits").replaceChildren(...items.map(x=>{const card=make("article",undefined,"card");return add(card,artwork(x,false,true),make("p",x.region,"eyebrow"),make("h3",x.name),make("p",x.summary),add(make("div",undefined,"actions card-actions"),button("Explore artwork",()=>openDetail(x)),button("Listen to story",()=>openDetail(x,true))))}));$("results").textContent=items.length+" tradition"+(items.length===1?"":"s")+" found.";if(!items.length)$("exhibits").append(make("p","No matching exhibits. Try another search or filter."))}
 $("search").addEventListener("input",renderCollection);$("category-filter").addEventListener("change",renderCollection);renderCollection();
 // Browse the virtual exhibition with ordinary HTML and JavaScript.
 let current=0;
@@ -127,7 +127,6 @@ function navigate(delta){current=(current+delta+exhibits.length)%exhibits.length
 $("prev-exhibit").addEventListener("click",()=>navigate(-1));
 $("next-exhibit").addEventListener("click",()=>navigate(1));
 showGallery();
-for(const x of exhibits){const li=make("li");li.append(add(make("div"),make("strong",heritage[x.id].storyTitle),make("p",x.category,"note")),button("Listen",()=>openDetail(x,true)));$("story-list").append(li)}
 for(const x of exhibits)$("artisan-list").append(profileCard(heritage[x.id]));
 // Fair trade: values always have a textual equivalent and CSS fallback.
 const priceIds=["materials","labour","logistics","overhead"],labels=["Materials","Artisan labour","Packaging & logistics","Retail & overhead"],colors=["#a34d34","#435a44","#e8d9c5","#594132"],defaults=[250,500,100,150];const moneyFormat=new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:0});const money=n=>moneyFormat.format(n);
