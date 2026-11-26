@@ -138,7 +138,28 @@ function openDetail(item,focusStory=false){
 }
 $("close-detail").addEventListener("click",()=>$("detail").close());$("detail").addEventListener("close",()=>{stopNarration();lastFocus?.focus()});$("detail").addEventListener("click",e=>{if(e.target===$("detail"))$("detail").close()});
 function renderCollection(){const query=$("search").value.trim().toLowerCase(),category=$("category-filter").value;const items=exhibits.filter(x=>(category==="all"||category===x.category)&&[x.category,x.name,x.region,x.artisan,x.material,x.place,heritage[x.id].artisan,heritage[x.id].title].join(" ").toLowerCase().includes(query));$("exhibits").replaceChildren(...items.map(x=>{const card=make("article",undefined,"card");return add(card,artwork(x,false,true),make("p",x.region,"eyebrow"),make("h3",x.name),make("p",x.summary),add(make("div",undefined,"actions card-actions"),button("Explore artwork",()=>openDetail(x)),button("Listen to story",()=>openDetail(x,true))))}));$("results").textContent=items.length+" tradition"+(items.length===1?"":"s")+" found.";if(!items.length)$("exhibits").append(make("p","No matching exhibits. Try another search or filter."))}
-$("search").addEventListener("input",renderCollection);$("category-filter").addEventListener("change",renderCollection);renderCollection();
+// The initial cards already exist in HTML, so they do not jump into place after loading.
+function connectInitialCards(){
+ const cards=$("exhibits").querySelectorAll("[data-exhibit]");
+ if(cards.length!==exhibits.length){renderCollection();return}
+ for(const card of cards){
+  const item=exhibits.find(x=>x.id===card.dataset.exhibit);
+  if(!item){renderCollection();return}
+  card.querySelector('[data-action="artwork"]').addEventListener("click",()=>openDetail(item));
+  card.querySelector('[data-action="story"]').addEventListener("click",()=>openDetail(item,true));
+  const img=card.querySelector("img"),m=media[item.id];
+  const onError=()=>{
+   if(!img.isConnected)return;
+   imageFailures.add(img.getAttribute("src"));
+   const box=make("div",undefined,"media-fallback");
+   box.append(make("span","Image unavailable","eyebrow"),make("strong",item.name),link("View the original reference photograph",m.source));
+   img.replaceWith(box);
+  };
+  img.addEventListener("error",onError);
+  if(img.complete&&img.naturalWidth===0)onError();
+ }
+}
+$("search").addEventListener("input",renderCollection);$("category-filter").addEventListener("change",renderCollection);connectInitialCards();
 // Browse the virtual exhibition with ordinary HTML and JavaScript.
 let current=0;
 function showGallery(){
