@@ -76,10 +76,6 @@ function storyPlayer(record){
   stopNarration();const token=++narrationToken;currentAudio=audio;audio.playbackRate=Number(rate.value);status.textContent="Loading narration…";
   try{await audio.play();if(token===narrationToken)status.textContent="Playing narration."}catch(e){if(token===narrationToken){currentAudio=null;status.textContent="Audio unavailable. Try browser read-aloud below or read the transcript."}}
  });
- const pause=button("Pause / resume",async()=>{
-  if(currentAudio===audio){if(audio.paused){try{await audio.play()}catch(e){status.textContent="Unable to resume audio."}}else audio.pause();return}
-  if(currentNarration?.status!==status)return;const s=window.speechSynthesis;if(s.paused){s.resume();status.textContent="Playing browser read-aloud."}else{s.pause();status.textContent="Narration paused."}
- });
  const stop=button("Stop",()=>{if(currentAudio===audio||currentNarration?.status===status){stopNarration();try{audio.currentTime=0}catch{}status.textContent="Narration stopped."}});
  audio.addEventListener("play",()=>{if(currentAudio!==audio){stopNarration();currentAudio=audio}status.textContent="Playing narration."});
  audio.addEventListener("pause",()=>{if(currentAudio===audio&&!audio.ended)status.textContent="Narration paused."});
@@ -110,7 +106,7 @@ function openDetail(item,focusStory=false){
  const documentation=provenanceCard(record);documentation.id="detail-references";
  const references=make("details",undefined,"exhibit-references");
  references.append(make("summary","Artwork record and references"),documentation,link(item.sourceName,item.source));
- const jump=(label,target)=>button(label,()=>target.scrollIntoView({block:"start"}));
+ const jump=(label,target)=>button(label,()=>{if(target.tagName==="DETAILS")target.open=true;target.scrollIntoView({block:"start"})});
  const shortcuts=add(make("div",undefined,"actions detail-shortcuts"),jump("Listen to story",story),jump("Meet the artisan",artist),jump("References",references));
  $("detail-content").replaceChildren(make("p",item.region,"eyebrow"),title,make("p",item.detail),shortcuts,artworkViewer(item),story,make("h3","Related artisan"),artist,references);
  $("detail").showModal();
