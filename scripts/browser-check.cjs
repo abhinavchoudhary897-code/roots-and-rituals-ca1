@@ -40,6 +40,24 @@ const fixture='<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000
    assert.equal(await gallery.locator(".room-mode").count(),1);
    await gallery.getByRole("button",{name:"Exit room preview",exact:true}).click();
  });
+ await check("all five narrations actually play",async()=>{
+   for(let i=0;i<5;i++){
+     await page.locator("#story-list button").nth(i).click();
+     const d=page.locator("#detail");
+     await d.getByRole("button",{name:"Play narration",exact:true}).click();
+     await page.waitForFunction(()=>document.querySelector("#detail audio")?.currentTime>0.1,{},{timeout:12000});
+     await d.getByRole("button",{name:"Stop",exact:true}).click();
+     await page.locator("#close-detail").click();
+     await d.waitFor({state:"hidden"});
+   }
+ });
+ await check("gallery position is updated on navigation",async()=>{
+   const old=await page.locator("#gallery-position").innerText();
+   await page.locator("#next-exhibit").click();
+   assert.notEqual(await page.locator("#gallery-position").innerText(),old);
+   await page.locator("#prev-exhibit").click();
+   assert.equal(await page.locator("#gallery-position").innerText(),old);
+ });
  await check("no uncaught page errors with network blocked",async()=>assert.deepEqual(errors,[]));
  console.log(JSON.stringify({environment:"Chromium; third-party requests blocked; synthetic test image fixture",report},null,2));
  await browser.close();if(report.some(r=>r.status==="fail"))process.exitCode=1;
