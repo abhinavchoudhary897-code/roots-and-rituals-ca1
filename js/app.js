@@ -30,20 +30,43 @@ const menu=$("menu");menu.addEventListener("click",()=>{const open=$("navigation
 // Artwork inspection: original file resolution is requested explicitly; zoom never implies extra image detail.
 function artworkViewer(item,priority=true){
  const m=media[item.id];if(!m)return make("p","No reference image available.");
- const panel=make("section",undefined,"artwork-viewer"),heading=make("h3","Artwork inspection");
- const viewport=make("div",undefined,"artwork-viewport"),fig=artwork(item,priority),status=make("p","Loading reference image…","status");
- status.setAttribute("role","status");const img=fig.querySelector("img");
- const controls=make("div",undefined,"actions"),level=make("span","100%");level.setAttribute("aria-live","polite");
- let scale=1,room=false,originalRequested=false;
- const sync=()=>{level.textContent=Math.round(scale*100)+"%";if(img)img.style.width=room?"100%":(scale*100)+"%";viewport.classList.toggle("room-mode",room);zoomOut.disabled=room||scale<=1;zoomIn.disabled=room||scale>=4;reset.disabled=room;};
- const zoomIn=button("Zoom in",()=>{scale=Math.min(4,scale+.5);sync()});
- const zoomOut=button("Zoom out",()=>{scale=Math.max(1,scale-.5);sync()});
- const reset=button("Reset zoom",()=>{scale=1;viewport.scrollLeft=0;viewport.scrollTop=0;sync()});
- const original=button("Load original image",()=>{if(!img?.isConnected)return;originalRequested=true;original.disabled=true;status.textContent="Loading the source file at its available resolution…";img.src=m.original});
- const roomBtn=button("Room preview",()=>{room=!room;roomBtn.setAttribute("aria-pressed",String(room));roomBtn.textContent=room?"Exit room preview":"Room preview";scale=1;viewport.scrollLeft=0;viewport.scrollTop=0;sync();});roomBtn.setAttribute("aria-pressed","false");
- if(img){img.addEventListener("load",()=>{status.textContent=(originalRequested&&img.getAttribute("src")===m.original?"Original source image: ":"Reference image: ")+img.naturalWidth+" × "+img.naturalHeight+" pixels. Digital zoom does not increase image resolution.";});}
- fig.addEventListener("reference-unavailable",()=>{status.textContent="Image unavailable. Open the source record to inspect the artwork.";original.disabled=true;zoomIn.disabled=true;zoomOut.disabled=true;reset.disabled=true;roomBtn.disabled=true;});
- controls.append(zoomOut,level,zoomIn,reset,original,roomBtn);viewport.append(fig);panel.append(heading,controls,viewport,status,make("p","Room preview is an illustrative exhibition wall, not a measured representation of the artwork.", "note"),link("Open original source record",m.source));sync();return panel
+ const panel=make("section",undefined,"artwork-viewer");
+ const viewport=make("div",undefined,"artwork-viewport"),fig=artwork(item,priority,true),status=make("p","Loading image…","status");
+ const img=fig.querySelector("img"),caption=fig.querySelector("figcaption");
+ status.setAttribute("role","status");
+ const controls=make("div",undefined,"actions viewer-controls"),level=make("span","Fit view","view-level");level.setAttribute("aria-live","polite");
+ const roomNote=make("p","Illustrative room preview; not to scale.","note");roomNote.hidden=true;
+ let scale=1,room=false,originalRequested=false,available=true;
+ const sync=()=>{
+  level.textContent=room?"Room view":scale===1?"Fit view":Math.round(scale*100)+"%";
+  viewport.style.setProperty("--zoom",String(scale));
+  viewport.classList.toggle("room-mode",room);
+  roomNote.hidden=!room;
+  zoomOut.disabled=!available||room||scale<=1;
+  zoomIn.disabled=!available||room||scale>=4;
+  reset.disabled=!available||room||scale===1;
+  roomBtn.disabled=!available;
+ };
+ const fit=()=>{scale=1;sync();viewport.scrollLeft=0;viewport.scrollTop=0};
+ const zoomIn=button("Zoom in",()=>{scale=Math.min(4,scale+.25);sync()});
+ const zoomOut=button("Zoom out",()=>{scale=Math.max(1,scale-.25);if(scale===1)fit();else sync()});
+ const reset=button("Fit view",fit);
+ const original=button("Load original image",()=>{if(!img?.isConnected)return;originalRequested=true;original.disabled=true;status.textContent="Loading original image…";img.src=m.original});
+ const roomBtn=button("Room preview",()=>{room=!room;roomBtn.setAttribute("aria-pressed",String(room));roomBtn.textContent=room?"Exit room preview":"Room preview";fit()});roomBtn.setAttribute("aria-pressed","false");
+ if(img){
+  fig.insertBefore(viewport,img);viewport.append(img);
+  img.addEventListener("load",()=>{
+   viewport.style.setProperty("--aspect",String(img.naturalWidth/img.naturalHeight));
+   status.textContent=(originalRequested&&img.getAttribute("src")===m.original?"Original":"Preview")+" · "+img.naturalWidth+" × "+img.naturalHeight+" px";
+  });
+ }
+ if(caption){caption.append(document.createTextNode(" · "),link("Source record",m.source));}
+ const imageInfo=make("details",undefined,"image-information");
+ imageInfo.append(make("summary","About this reference image"),make("p",m.note,"note"),make("p","Zoom magnifies the image; loading the original may provide more detail.","note"));
+ fig.addEventListener("reference-unavailable",()=>{available=false;status.textContent="Image unavailable. See the source record.";original.disabled=true;sync()});
+ controls.append(zoomOut,level,zoomIn,reset,original,roomBtn);
+ panel.append(controls,fig,status,roomNote,imageInfo);
+ sync();return panel
 }
 
 // Cultural record cards distinguish archive provenance from artwork certification.
