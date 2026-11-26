@@ -78,6 +78,18 @@ const fixture='<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000
      assert.ok(await gallery.evaluate(v=>v.scrollHeight<=v.clientHeight+1&&v.scrollWidth<=v.clientWidth+1));
    }
  });
+ await check("initial collection is present before JavaScript runs",async()=>{
+   const ctx=await browser.newContext({javaScriptEnabled:false,viewport:{width:1440,height:900}});
+   const staticPage=await ctx.newPage();
+   await staticPage.route("https://**/*",r=>r.request().resourceType()==="image"?r.fulfill({status:200,contentType:"image/svg+xml",body:fixture}):r.abort());
+   try{
+     await staticPage.goto(base,{waitUntil:"domcontentloaded"});
+     assert.equal(await staticPage.locator("#exhibits .card").count(),5);
+     assert.equal(await staticPage.locator("#results").innerText(),"5 traditions found.");
+     const first=staticPage.locator("#exhibits img").first();
+     assert.equal(Math.round((await first.boundingBox()).height),220);
+   }finally{await ctx.close()}
+ });
  await check("no uncaught page errors with network blocked",async()=>assert.deepEqual(errors,[]));
  console.log(JSON.stringify({environment:"Chromium; third-party requests blocked; synthetic test image fixture",report},null,2));
  await browser.close();if(report.some(r=>r.status==="fail"))process.exitCode=1;
