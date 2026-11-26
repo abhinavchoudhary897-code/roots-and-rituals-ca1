@@ -1,4 +1,4 @@
-// Research records distinguish craft GI registration, artwork provenance, image rights and artisan honours.
+// Distinct cultural records and craft registration evidence.
 window.HERITAGE_RECORDS = {
   "warli": {
     "title": "The old man and seven daughters",
@@ -18,8 +18,8 @@ window.HERITAGE_RECORDS = {
     "profileSource": "https://imp-art.org/articles/jivya-soma-mashe/",
     "awardSource": "https://www.pib.gov.in/newsite/PrintRelease.aspx?lang=2&reg=48&relid=69364",
     "giSource": "https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/239",
-    "masterwork": "Paintings by Jivya Soma Mashe, including works on cloth documented in the Museum of Art & Photography collection.",
-    "masterworkSource": "https://imp-art.org/articles/jivya-soma-mashe/"
+    "masterwork": "Untitled (Warli Wedding/Chauk Palghata Mata Temple) — Jivya Soma Mashe; MAP accession PTG.00849.",
+    "masterworkSource": "https://map-india.org/collections/cumulus/living-traditions/PTG.00849/?id=4220"
   },
   "gond": {
     "title": "Footprints and the wind",
