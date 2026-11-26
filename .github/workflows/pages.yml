@@ -35,7 +35,7 @@ jobs:
           trap 'kill $server' EXIT
           sleep 2
           node scripts/browser-check.cjs
-      - name: Lighthouse mobile quality audit
+      - name: Lighthouse mobile and desktop quality audit
         continue-on-error: true
         run: |
           npm install --no-save --no-package-lock playwright lighthouse
@@ -44,8 +44,13 @@ jobs:
           server=$!
           trap 'kill $server' EXIT
           sleep 2
-          npx lighthouse http://127.0.0.1:8081/ --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=/tmp/roots-lighthouse.json --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --quiet --max-wait-for-load=30000
-          node -e 'const r=require("/tmp/roots-lighthouse.json"); for(const [k,v] of Object.entries(r.categories))console.log(k+": "+Math.round(v.score*100)+"/100"); for(const [k,v] of Object.entries(r.audits))if(v.score!==null&&v.score<0.9&&v.scoreDisplayMode!=="informative")console.log(k+": "+(v.displayValue||v.title));'
+          for mode in mobile desktop; do
+            echo "Lighthouse: $mode"
+            preset=""
+            if [ "$mode" = desktop ]; then preset="--preset=desktop"; fi
+            npx lighthouse http://127.0.0.1:8081/ $preset --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=/tmp/roots-lighthouse-$mode.json --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --quiet --max-wait-for-load=30000
+            node -e 'const r=require(process.argv[1]); for(const [k,v] of Object.entries(r.categories))console.log(k+": "+Math.round(v.score*100)+"/100"); console.log("CLS: "+r.audits["cumulative-layout-shift"].numericValue); for(const [k,v] of Object.entries(r.audits))if(v.score!==null&&v.score<0.9&&v.scoreDisplayMode!=="informative")console.log(k+": "+(v.displayValue||v.title));' "/tmp/roots-lighthouse-$mode.json"
+          done
       - name: Stage static site
         run: |
           mkdir -p _site
