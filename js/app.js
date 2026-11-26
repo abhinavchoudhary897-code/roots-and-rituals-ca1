@@ -11,6 +11,7 @@ const media=window.EXHIBIT_MEDIA||{};
 const imageFailures=new Set();
 function artwork(item,priority=false,compact=false){
  const m=media[item.id];if(!m)return make("p","No reference photograph available.","note");
+ if(m.linkOnly){return add(make("figure",undefined,"exhibit-media"),add(make("div",undefined,"media-fallback"),make("span","Museum record · image not reproduced","eyebrow"),make("strong",item.name),link("View artwork at the museum",m.source)),add(make("figcaption",undefined,"media-credit"),link(m.credit,m.source),document.createTextNode(" · "+m.note)))}
  const fig=make("figure",undefined,"exhibit-media"),img=make("img",undefined,"media-image");
  img.alt=m.alt;
  img.loading=priority?"eager":"lazy";img.decoding="async";
@@ -30,6 +31,7 @@ const menu=$("menu");menu.addEventListener("click",()=>{const open=$("navigation
 // Artwork inspection: original file resolution is requested explicitly; zoom never implies extra image detail.
 function artworkViewer(item,priority=true){
  const m=media[item.id];if(!m)return make("p","No reference image available.");
+ if(m.linkOnly)return add(make("section",undefined,"artwork-viewer"),artwork(item,priority),make("p","The museum record offers artwork viewing. Zoom and room preview are not provided for this reference because reproduction permission has not been established.","note"));
  const panel=make("section",undefined,"artwork-viewer");
  const viewport=make("div",undefined,"artwork-viewport"),fig=artwork(item,priority,true),status=make("p","Loading image…","status");
  const img=fig.querySelector("img"),caption=fig.querySelector("figcaption");
@@ -153,6 +155,7 @@ function connectInitialCards(){
   card.querySelector('[data-action="artwork"]').addEventListener("click",()=>openDetail(item));
   card.querySelector('[data-action="story"]').addEventListener("click",()=>openDetail(item,true));
   const img=card.querySelector("img"),m=media[item.id];
+  if(!img)continue;
   const onError=()=>{
    if(!img.isConnected)return;
    imageFailures.add(img.getAttribute("src"));
